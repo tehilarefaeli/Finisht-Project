@@ -23,20 +23,6 @@ function App() {
 
 
       </Switch>
-      {/* <BrowserRouter>
-        <Redirect to='/signIn' />
-        <Route path='/signIn' component={SignIn} />
-      </BrowserRouter>
-
-      <BrowserRouter>
-        <Redirect to='/signUp' />
-        <Route path='/signUp' component={SignUp} />
-      </BrowserRouter>
-
-      <BrowserRouter>
-        <Redirect to='/chooseContry' />
-        <Route path='/chooseContry' component={ChooseContry} />
-      </BrowserRouter> */}
     </div>
   );
 }
