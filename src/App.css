@@ -1,5 +1,4 @@
 
-
 .MuiButtonBase-root.MuiButton-root.MuiButton-contained{
   color: brown;
   background-color: rgb(209, 202, 192);
@@ -16,5 +15,24 @@
     transform: rotate(360deg);
   }
 }
+.parent {
+  display: grid;
+  grid-template-columns: 15% repeat(2, 1fr) 15%;
+  grid-template-rows: 10% repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  }
 
-
+  .MuiAutocomplete-root { grid-area: 1 / 2 / 4 / 5; }
+  #a1 { grid-area: 2 / 2 / 3 / 3; }
+  #a2 { grid-area: 2 / 3 / 3 / 4; }
+  #a3{ grid-area: 3 / 2 / 4 / 3; }
+  /*
+  .div3 { grid-area: 3 / 2 / 4 / 3; }
+  .div4 { grid-area: 3 / 3 / 4 / 4; }
+  MuiAutocomplete-root MuiAutocomplete-hasClearIcon
+   MuiAutocomplete-hasPopupIcon
+  */
+  
+  
+  

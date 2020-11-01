@@ -47,21 +47,21 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function RecipeReviewCard(props: Country) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-
+    let i = 0;
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} id={props.id} >
             <CardHeader
                 avatar={
                     props.isFavorite ? <div aria-label="recipe" className={classes.avatar}>
                         <FavoriteIcon />
                     </div> :
-                        <Avatar aria-label="recipe" className={classes.avatar}>
+                        <div aria-label="recipe" className={classes.avatar}>
                             <FavoriteBorderIcon />
-                        </Avatar>
+                        </div>
                 }
 
 

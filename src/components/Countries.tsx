@@ -6,12 +6,14 @@ import { Country } from '../interfaces/Country.interface';
 import RecipeReviewCard from './Cards';
 
 export default function Countries() {
+    let i = 0;
     const countries: Country[] = [
-        { name: 'Israel', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\logo512.png', isFavorite: false },
-        { name: 'US', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\logo512.png', isFavorite: true }
+        { name: 'Israel', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\langhe-250px-Flag_of_Israel.svg.png', isFavorite: false, id: 'a' + (i = i + 1).toString() },
+        { name: 'United Kingdom', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\langhe-250px-Flag_of_the_United_Kingdom.svg.png', isFavorite: true, id: 'a' + (i = i + 1).toString() },
+        { name: 'France', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\langhe-250px-Flag_of_France.svg.png', isFavorite: false, id: 'a' + (i = i + 1).toString() }
     ];
     return (
-        <div>
+        <div className="parent">
             <Autocomplete
                 id="combo-box-demo"
                 options={top100Films}
@@ -21,7 +23,7 @@ export default function Countries() {
             />
 
             {
-                countries.map((c, idx) => {
+                countries.map((c, idx,) => {
                     return <RecipeReviewCard key={idx}  {...c} />
                 })
             }
