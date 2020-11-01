@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import { Switch, Redirect, Route, Router, BrowserRouter } from 'react-router-dom';
 import SignIn from './components/Sign-in';

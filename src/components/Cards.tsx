@@ -14,10 +14,7 @@ import Logo from '../../public/logo.192.png'
 import { Country } from '../interfaces/Country.interface';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-//import FavoriteIcon from '@material-ui/icons/Favorite';
-//import ShareIcon from '@material-ui/icons/Share';
-//import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-//import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -74,8 +71,7 @@ export default function RecipeReviewCard(props: Country) {
             />
             <CardMedia
                 className={classes.media}
-                image='../../public/logo192.png'
-            // title="Paella dish"
+                image={props.flag}
             />
             <CardContent>
                 {/* <img src='C://Users//Tehila//Desktop//React//finistproject//public//logo512.png' /> */}
