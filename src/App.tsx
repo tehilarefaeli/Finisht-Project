@@ -9,6 +9,7 @@ import ChooseContry from './components/Choose-contry';
 import Example from './components/New-component';
 import RecipeReviewCard from './components/Cards';
 import Country from './components/Countries';
+import EnhancedTable from './components/Table';
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Exmaple" component={Example} />
         <Route path="/RecipeReviewCard" component={RecipeReviewCard} />
         <Route path="/Country" component={Country} />
+        <Route path="/EnhancedTable" component={EnhancedTable} />
 
 
       </Switch>

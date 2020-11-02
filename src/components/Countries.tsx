@@ -3,9 +3,8 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Country } from '../interfaces/Country.interface';
+
 import RecipeReviewCard from './Cards';
-
-
 export default function Countries() {
     let i = 0;
     const countries: Country[] = [
@@ -25,10 +24,12 @@ export default function Countries() {
 
             {
                 countries.map((c, idx,) => {
-                    return <RecipeReviewCard key={idx} name={c.name}
-                        flag={c.flag} isFavorite={c.isFavorite} id={c.id} />
+                    return <RecipeReviewCard key={idx} {...c}
+                    />
                 })
             }
+
+
         </div>
     );
 }
