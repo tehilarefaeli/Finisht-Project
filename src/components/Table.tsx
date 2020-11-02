@@ -1,6 +1,7 @@
 
 import React from 'react';
 //import clsx from 'clsx';
+import { Data } from '../interfaces/Data.interface';
 import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,9 +11,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Paper from '@material-ui/core/Paper';
 //import Toolbar from '@material-ui/core/Toolbar';
 //import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 //import Checkbox from '@material-ui/core/Checkbox';
 //import IconButton from '@material-ui/core/IconButton';
 //import Tooltip from '@material-ui/core/Tooltip';
@@ -21,38 +22,27 @@ import Paper from '@material-ui/core/Paper';
 //import DeleteIcon from '@material-ui/icons/Delete';
 //import FilterListIcon from '@material-ui/icons/FilterList';
 
-interface Data {
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
-}
+
+
 
 function createData(
     name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
+    phone: number,
+    address: string,
+    city: string,
+    manager: string,
+    stars: number,
 ): Data {
-    return { name, calories, fat, carbs, protein };
+    return { name, phone, address, city, manager, stars };
 }
 
 const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
+    createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 5),
+    createData('Donut', 452, 'wwwwww', 'rrrrrr', 'ooooooo', 4),
+    createData('Eclair', 262, 'bbbbbb', 'zzzzzz', 'opppp', 6),
+    createData('Frozen yoghurt', 159, 'jjjjjj', 'nnnnnn', 'qqqqqqq', 24),
+    createData('Gingerbread', 356, 'lllllll', 'iiiiiii', 'mmmmm', 3.9),
+    createData('Honeycomb', 408, 'bbbbb', 'aaaaa', 'm', 87,),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -94,11 +84,13 @@ interface HeadCell {
 }
 
 const headCells: HeadCell[] = [
-    { id: 'name', numeric: false, disablePadding: true, label: ' name' },
-    { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-    { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+    { id: 'name', numeric: false, disablePadding: true, label: ' Name' },
+    { id: 'address', numeric: true, disablePadding: false, label: 'Address' },
+    { id: 'phone', numeric: true, disablePadding: false, label: 'Phone' },
+    { id: 'city', numeric: true, disablePadding: false, label: 'City' },
+    { id: 'manager', numeric: true, disablePadding: false, label: 'Manager' },
+    { id: 'stars', numeric: true, disablePadding: false, label: 'Stars' },
+
 ];
 
 interface EnhancedTableProps {
@@ -146,38 +138,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-const useToolbarStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(1),
-        },
-        highlight:
-            theme.palette.type === 'light'
-                ? {
-                    color: theme.palette.secondary.main,
-                    backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-                }
-                : {
-                    color: theme.palette.text.primary,
-                    backgroundColor: theme.palette.secondary.dark,
-                },
-        title: {
-            flex: '1 1 100%',
-        },
-    }),
-);
-
-interface EnhancedTableToolbarProps {
-    numSelected: number;
-}
-
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
-
-
-};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -208,7 +168,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EnhancedTable() {
     const classes = useStyles();
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('address');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -228,7 +188,6 @@ export default function EnhancedTable() {
         }
         setSelected([]);
     };
-
     const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected: string[] = [];
@@ -256,10 +215,6 @@ export default function EnhancedTable() {
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-    };
-
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
     };
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
@@ -295,21 +250,22 @@ export default function EnhancedTable() {
 
                                     return (
                                         <TableRow
-                                            hover
-                                            onClick={(event) => handleClick(event, row.name)}
-                                            role="checkbox"
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.name}
-                                            selected={isItemSelected}
+                                        /*hover
+                                        onClick={(event) => handleClick(event, row.name)}
+                                        role="checkbox"
+                                        aria-checked={isItemSelected}
+                                        tabIndex={-1}
+                                        key={row.name}
+                                        selected={isItemSelected}*/
                                         >
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
+                                            <TableCell align="right">{row.address}</TableCell>
+                                            <TableCell align="right">{row.phone}</TableCell>
+                                            <TableCell align="right">{row.city}</TableCell>
+                                            <TableCell align="right">{row.manager}</TableCell>
+                                            <TableCell align="right">{row.stars}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -332,6 +288,6 @@ export default function EnhancedTable() {
                 />
             </Paper>
 
-        </div>
+        </div >
     );
 }
