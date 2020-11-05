@@ -1,17 +1,26 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Country } from '../interfaces/Country.interface';
+import Israel from '../assets/Israel.png'
 
 import RecipeReviewCard from './Cards';
 export default function Countries() {
     let i = 0;
-    const countries: Country[] = [
-        { name: 'Israel', flag: 'https://www.hamichlol.org.il/%D7%A7%D7%95%D7%91%D7%A5:Flag_of_Israel.svg', isFavorite: false, id: 'a' + (i = i + 1).toString() },
+    const [countries, setCountries] = useState<Country[]>([
+        { name: 'Israel', flag: Israel, isFavorite: false, id: 'a' + (i = i + 1).toString() },
         { name: 'United Kingdom', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\United_Kingdom.png', isFavorite: true, id: 'a' + (i = i + 1).toString() },
-        { name: 'France', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\France.png', isFavorite: false, id: 'a' + (i = i + 1).toString() }
-    ];
+        { name: 'France', flag: 'C:\Users\Tehila\Desktop\React\finistproject\src\assets\United_Kingdom.png', isFavorite: false, id: 'a' + (i = i + 1).toString() }
+    ]);
+    const updateIsFavorite = (id: string) => {
+        let arr = [...countries]
+        arr.forEach(a => {
+            if (a.id === id)
+                a.isFavorite = !a.isFavorite
+        })
+        setCountries(arr)
+    }
     return (
         <div className="parent">
             <Autocomplete
@@ -24,7 +33,7 @@ export default function Countries() {
 
             {
                 countries.map((c, idx,) => {
-                    return <RecipeReviewCard key={idx} {...c}
+                    return <RecipeReviewCard key={idx} country={c} setCountry={(id: string) => updateIsFavorite(id)}
                     />
                 })
             }

@@ -21,18 +21,34 @@
   grid-template-rows: 10% repeat(2, 1fr);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
-  }
+}
+/* תיבת טקסט חיפוש*/
+.MuiAutocomplete-root { grid-area: 1 / 2 / 4 / 5; }
+#a1 { grid-area: 2 / 2 / 3 / 3; }
+#a2 { grid-area: 2 / 3 / 3 / 4; }
+#a3{ grid-area: 3 / 2 / 4 / 3; }
+/*
+.div3 { grid-area: 3 / 2 / 4 / 3; }
+.div4 { grid-area: 3 / 3 / 4 / 4; }
+MuiAutocomplete-root MuiAutocomplete-hasClearIcon
+ MuiAutocomplete-hasPopupIcon
+*/
+#Table {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      }
 
-  .MuiAutocomplete-root { grid-area: 1 / 2 / 4 / 5; }
-  #a1 { grid-area: 2 / 2 / 3 / 3; }
-  #a2 { grid-area: 2 / 3 / 3 / 4; }
-  #a3{ grid-area: 3 / 2 / 4 / 3; }
-  /*
-  .div3 { grid-area: 3 / 2 / 4 / 3; }
-  .div4 { grid-area: 3 / 3 / 4 / 4; }
-  MuiAutocomplete-root MuiAutocomplete-hasClearIcon
-   MuiAutocomplete-hasPopupIcon
-  */
-  
+#table {
+  grid-area: 2 / 2 / 5 / 5;
+}
+/*טקסט בתוך הטבלה*/
+.MuiTableCell-root.MuiTableCell-body{
+  text-align: center;
+}
+
+
   
   

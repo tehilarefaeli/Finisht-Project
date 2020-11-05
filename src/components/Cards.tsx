@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Country } from '../interfaces/Country.interface';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { CardProps } from '../interfaces/CardProps.interface';
 
 
 
@@ -38,35 +39,37 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function RecipeReviewCard(props: Country) {
+export default function RecipeReviewCard(props: CardProps) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+
     let i = 0;
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    console.log(props.flag);
+    //console.log(props.country.flag);
+
     return (
-        <Card className={classes.root} id={props.id} >
+
+        <Card className={classes.root} id={props.country.id} >
             <CardHeader
                 avatar={
-                    props.isFavorite ? <IconButton aria-label="recipe"
-                        className={classes.avatar}
-
+                    props.country.isFavorite ? <IconButton aria-label="recipe"
+                        className={classes.avatar} onClick={() => props.setCountry(props.country.id)}
                     >
-
                         <FavoriteIcon />
                     </IconButton> :
-                        <IconButton aria-label="recipe" className={classes.avatar}>
+                        <IconButton aria-label="recipe" className={classes.avatar}
+                            onClick={() => props.setCountry(props.country.id)}>
                             <FavoriteBorderIcon />
                         </IconButton>
                 }
 
-                title={<h3>{props.name}</h3>}
+                title={<h3>{props.country.name}</h3>}
             />
             <CardMedia
                 className={classes.media}
-                image={props.flag}
+                image={props.country.flag}
 
             />
 

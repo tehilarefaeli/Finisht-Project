@@ -1,8 +1,9 @@
 
 import React from 'react';
-//import clsx from 'clsx';
-import { Data } from '../interfaces/Data.interface';
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+//import clsx from 'clsx'
+import { HeadCell } from '../interfaces/HeadCell.interface';
+
+import { createStyles,/*lighten,*/ makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +13,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
+import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
 //import Toolbar from '@material-ui/core/Toolbar';
 //import Typography from '@material-ui/core/Typography';
 //import Checkbox from '@material-ui/core/Checkbox';
@@ -24,26 +26,6 @@ import Paper from '@material-ui/core/Paper';
 
 
 
-
-function createData(
-    name: string,
-    phone: number,
-    address: string,
-    city: string,
-    manager: string,
-    stars: number,
-): Data {
-    return { name, phone, address, city, manager, stars };
-}
-
-const rows = [
-    createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 5),
-    createData('Donut', 452, 'wwwwww', 'rrrrrr', 'ooooooo', 4),
-    createData('Eclair', 262, 'bbbbbb', 'zzzzzz', 'opppp', 6),
-    createData('Frozen yoghurt', 159, 'jjjjjj', 'nnnnnn', 'qqqqqqq', 24),
-    createData('Gingerbread', 356, 'lllllll', 'iiiiiii', 'mmmmm', 3.9),
-    createData('Honeycomb', 408, 'bbbbb', 'aaaaa', 'm', 87,),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -76,63 +58,51 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
     return stabilizedThis.map((el) => el[0]);
 }
 
-interface HeadCell {
-    disablePadding: boolean;
-    id: keyof Data;
-    label: string;
-    numeric: boolean;
-}
 
-const headCells: HeadCell[] = [
-    { id: 'name', numeric: false, disablePadding: true, label: ' Name' },
-    { id: 'address', numeric: true, disablePadding: false, label: 'Address' },
-    { id: 'phone', numeric: true, disablePadding: false, label: 'Phone' },
-    { id: 'city', numeric: true, disablePadding: false, label: 'City' },
-    { id: 'manager', numeric: true, disablePadding: false, label: 'Manager' },
-    { id: 'stars', numeric: true, disablePadding: false, label: 'Stars' },
-
-];
 
 interface EnhancedTableProps {
     classes: ReturnType<typeof useStyles>;
-    numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // numSelected: number;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
+    // onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     order: Order;
     orderBy: string;
     rowCount: number;
+    headCells: HeadCell[];
+    rows: any[];
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-    const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    const { classes, /*onSelectAllClick,*/ order, orderBy, rowCount, onRequestSort } = props;
+    const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
     };
-
+    const { headCells, rows } = props;
     return (
         <TableHead>
             <TableRow>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
-                        padding={headCell.disablePadding ? 'none' : 'default'}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                {
+                    headCells.map((headCell) => (
+                        <TableCell
+                            key={headCell.id}
+                            align='right'
+                            padding={'default'}
+                            sortDirection={orderBy === headCell.id ? order : false}
                         >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <span className={classes.visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </span>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
+                            <TableSortLabel
+                                active={orderBy === headCell.id}
+                                direction={orderBy === headCell.id ? order : 'asc'}
+                                onClick={createSortHandler(headCell.id)}
+                            >
+                                {headCell.label}
+                                {orderBy === headCell.id ? (
+                                    <span className={classes.visuallyHidden}>
+                                        {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                    </span>
+                                ) : null}
+                            </TableSortLabel>
+                        </TableCell>
+                    ))}
             </TableRow>
         </TableHead>
     );
@@ -165,30 +135,30 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function EnhancedTable() {
+export default function CustomTable(props: CustomTableProps) {
     const classes = useStyles();
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('address');
+    const [orderBy, setOrderBy] = React.useState<string>('address');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
+    const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
 
-    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    // const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.checked) {
+    //         const newSelecteds =props.rows.map((n) => n.name);
+    //         setSelected(newSelecteds);
+    //         return;
+    //     }
+    //     setSelected([]);
+    // };
+    /*const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected: string[] = [];
 
@@ -206,7 +176,7 @@ export default function EnhancedTable() {
         }
 
         setSelected(newSelected);
-    };
+    };*/
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -219,11 +189,11 @@ export default function EnhancedTable() {
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
     return (
-        <div className={classes.root}>
-            <Paper className={classes.paper}>
+        <div className={classes.root} id="Table">
+            <Paper className={classes.paper} id="table">
 
                 <TableContainer>
                     <Table
@@ -234,18 +204,20 @@ export default function EnhancedTable() {
                     >
                         <EnhancedTableHead
                             classes={classes}
-                            numSelected={selected.length}
+                            // numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
+                            // onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
+                            rowCount={props.rows.length}
+                            rows={props.rows}
+                            headCells={props.headCells}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {stableSort(props.rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    //const isItemSelected = isSelected(row.name);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
@@ -258,14 +230,13 @@ export default function EnhancedTable() {
                                         key={row.name}
                                         selected={isItemSelected}*/
                                         >
-                                            <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.address}</TableCell>
-                                            <TableCell align="right">{row.phone}</TableCell>
-                                            <TableCell align="right">{row.city}</TableCell>
-                                            <TableCell align="right">{row.manager}</TableCell>
-                                            <TableCell align="right">{row.stars}</TableCell>
+                                            {
+                                                props.headCells.map((h, idx) => {
+                                                    return <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                        {row[h.id]}
+                                                    </TableCell>
+                                                })
+                                            }
                                         </TableRow>
                                     );
                                 })}
@@ -280,7 +251,7 @@ export default function EnhancedTable() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={props.rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
