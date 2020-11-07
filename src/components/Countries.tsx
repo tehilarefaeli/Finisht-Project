@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Country } from '../interfaces/Country.interface';
-import Israel from '../assets/Israel.png'
+import Israel from '../assets/Israel.png';
+import France from '../assets/France.png';
+import United_Kingdom from '../assets/United_Kingdom.png';
+
 
 import RecipeReviewCard from './Cards';
 export default function Countries() {
     let i = 0;
     const [countries, setCountries] = useState<Country[]>([
         { name: 'Israel', flag: Israel, isFavorite: false, id: 'a' + (i = i + 1).toString() },
-        { name: 'United Kingdom', flag: 'C:\Users\Tehila\Desktop\React\finistproject\public\United_Kingdom.png', isFavorite: true, id: 'a' + (i = i + 1).toString() },
-        { name: 'France', flag: 'C:\Users\Tehila\Desktop\React\finistproject\src\assets\United_Kingdom.png', isFavorite: false, id: 'a' + (i = i + 1).toString() }
+        { name: 'United Kingdom', flag: United_Kingdom, isFavorite: true, id: 'a' + (i = i + 1).toString() },
+        { name: 'France', flag: France, isFavorite: false, id: 'a' + (i = i + 1).toString() }
     ]);
     const updateIsFavorite = (id: string) => {
         let arr = [...countries]

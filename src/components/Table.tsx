@@ -150,33 +150,15 @@ export default function CustomTable(props: CustomTableProps) {
         setOrderBy(property);
     };
 
-    // const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (event.target.checked) {
-    //         const newSelecteds =props.rows.map((n) => n.name);
-    //         setSelected(newSelecteds);
-    //         return;
-    //     }
-    //     setSelected([]);
-    // };
-    /*const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected: string[] = [];
+    //const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //    if (event.target.checked) {
+    //        const newSelecteds = props.rows.map((n) => n.name);
+    //        setSelected(newSelecteds);
+    //        return;
+    //    }
+    //    setSelected([]);
+    //};
 
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
-        setSelected(newSelected);
-    };*/
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);

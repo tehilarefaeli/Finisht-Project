@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 //import CardActions from '@material-ui/core/CardActions';
 //import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import { Country } from '../interfaces/Country.interface';
+//import { Country } from '../interfaces/Country.interface';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { CardProps } from '../interfaces/CardProps.interface';
