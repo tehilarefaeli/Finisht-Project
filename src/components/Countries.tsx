@@ -6,9 +6,8 @@ import { Country } from '../interfaces/Country.interface';
 import Israel from '../assets/Israel.png';
 import France from '../assets/France.png';
 import United_Kingdom from '../assets/United_Kingdom.png';
-
-
 import RecipeReviewCard from './Cards';
+
 export default function Countries() {
     let i = 0;
     const [countries, setCountries] = useState<Country[]>([
@@ -27,12 +26,23 @@ export default function Countries() {
     return (
         <div className="parent">
             <Autocomplete
-                id="combo-box-demo"
+                id="country"
+                className="country"
                 options={top100Films}
                 getOptionLabel={(option) => option.title}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+                renderInput={(params) => <TextField {...params} label="Choose Country" variant="outlined" />}
             />
+            <Autocomplete
+                id="service"
+                className="ssss"
+                options={top100Films}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Choose Service" variant="outlined" />}
+            />
+
+
 
             {
                 countries.map((c, idx,) => {
