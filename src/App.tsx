@@ -5,7 +5,7 @@ import { Switch, Redirect, Route, Router, BrowserRouter } from 'react-router-dom
 import SignIn from './components/Sign-in';
 import SignUp from './components/Sing-up';
 import ChooseContry from './components/Choose-contry';
-import Example from './components/New-component';
+
 import RecipeReviewCard from './components/Cards';
 import Country from './components/Countries';
 import Hotel from './components/Hotel';
@@ -14,7 +14,7 @@ import Synagogue from './components/Synagogue';
 import Tour from './components/Tour';
 import Site from './components/Site';
 import User from './components/User';
-import EnhancedTable from './components/New-component';
+
 
 
 function App() {
@@ -25,7 +25,6 @@ function App() {
         <Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/chooseContry" component={ChooseContry} />
-        <Route path="/exmaple" component={EnhancedTable} />
         <Route path="/recipeReviewCard" component={RecipeReviewCard} />
         <Route path="/country" component={Country} />
         <Route path="/hotel" component={Hotel} />
