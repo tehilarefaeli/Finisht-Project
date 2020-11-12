@@ -7,6 +7,7 @@ import Israel from '../assets/Israel.png';
 import France from '../assets/France.png';
 import United_Kingdom from '../assets/United_Kingdom.png';
 import RecipeReviewCard from './Cards';
+import { useHistory } from 'react-router-dom';
 
 export default function Countries() {
     let i = 0;
@@ -15,6 +16,7 @@ export default function Countries() {
         { name: 'United Kingdom', flag: United_Kingdom, isFavorite: true, id: 'a' + (i = i + 1).toString() },
         { name: 'France', flag: France, isFavorite: false, id: 'a' + (i = i + 1).toString() }
     ]);
+    const history = useHistory();//מילה שמורה בשביל ניתוב בין עמודים
     const updateIsFavorite = (id: string) => {
         let arr = [...countries]
         arr.forEach(a => {
@@ -23,6 +25,13 @@ export default function Countries() {
         })
         setCountries(arr)
     }
+
+    const ServiceChange = (e: any, option: any) => {
+        console.log(option)
+        let route = option.title.charAt(0).toLowerCase() + option.title.slice(1);
+        console.log(route)
+        history.push(`/${route}`)
+    }
     return (
         <div className="parent">
             <Autocomplete
@@ -30,19 +39,18 @@ export default function Countries() {
                 className="country"
                 options={top100Films}
                 getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
+                style={{ width: 348 }}
                 renderInput={(params) => <TextField {...params} label="Choose Country" variant="outlined" />}
             />
             <Autocomplete
                 id="service"
                 className="ssss"
-                options={top100Films}
+                options={topService}
                 getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
+                style={{ width: 348 }}
+                onChange={ServiceChange}
                 renderInput={(params) => <TextField {...params} label="Choose Service" variant="outlined" />}
             />
-
-
 
             {
                 countries.map((c, idx,) => {
@@ -158,4 +166,13 @@ const top100Films = [
     { title: 'Snatch', year: 2000 },
     { title: '3 Idiots', year: 2009 },
     { title: 'Monty Python and the Holy Grail', year: 1975 },
+];
+
+const topService = [
+    { title: 'Hotel', id: '1' },
+    { title: 'Restaurant', id: '2' },
+    { title: 'Site', id: '3' },
+    { title: 'Synagogue', id: '4' },
+    { title: 'Tour', id: '5' },
+    //{ title: 'User', id: '6' }
 ];

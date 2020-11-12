@@ -14,6 +14,7 @@ import Synagogue from './components/Synagogue';
 import Tour from './components/Tour';
 import Site from './components/Site';
 import User from './components/User';
+import EnhancedTable from './components/New-component';
 
 
 function App() {
@@ -24,15 +25,17 @@ function App() {
         <Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/chooseContry" component={ChooseContry} />
-        <Route path="/Exmaple" component={Example} />
-        <Route path="/RecipeReviewCard" component={RecipeReviewCard} />
-        <Route path="/Country" component={Country} />
+        <Route path="/exmaple" component={EnhancedTable} />
+        <Route path="/recipeReviewCard" component={RecipeReviewCard} />
+        <Route path="/country" component={Country} />
         <Route path="/hotel" component={Hotel} />
         <Route path="/restaurant" component={Restaurant} />
         <Route path="/synagogue" component={Synagogue} />
         <Route path="/tour" component={Tour} />
         <Route path="/site" component={Site} />
         <Route path="/user" component={User} />
+
+
 
 
 

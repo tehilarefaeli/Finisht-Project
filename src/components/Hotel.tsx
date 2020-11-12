@@ -25,12 +25,12 @@ export default function Hotel() {
     ];
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name' },
-        { id: 'address', label: 'Address' },
-        { id: 'phone', label: 'Phone' },
-        { id: 'city', label: 'City' },
-        { id: 'manager', label: 'Manager' },
-        { id: 'stars', label: 'Stars' },
+        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
+        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
+        { id: 'phone', label: 'Phone', numeric: false, disablePadding: true, },
+        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
+        { id: 'manager', label: 'Manager', numeric: false, disablePadding: true, },
+        { id: 'stars', label: 'Stars', numeric: false, disablePadding: true, },
 
     ];
     return <CustomTable headCells={headCells} rows={rows} />

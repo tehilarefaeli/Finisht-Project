@@ -30,16 +30,16 @@ export default function Tour() {
     ];
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name' },
-        { id: 'address', label: 'Address' },
-        { id: 'city', label: 'City' },
-        { id: 'guide', label: ' Guide' },
-        { id: 'phoneGuide', label: 'Phone Guide' },
-        { id: 'placeOfDeparture', label: 'Place Of Departure' },
-        { id: 'duration', label: 'Duration' },
-        { id: 'trak', label: 'Trak' },
-        { id: 'age', label: 'Age' },
-        { id: 'duscription', label: 'Duscription' },
+        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
+        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
+        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
+        { id: 'guide', label: ' Guide', numeric: false, disablePadding: true, },
+        { id: 'phoneGuide', label: 'Phone Guide', numeric: false, disablePadding: true, },
+        { id: 'placeOfDeparture', label: 'Place Of Departure', numeric: false, disablePadding: true, },
+        { id: 'duration', label: 'Duration', numeric: false, disablePadding: true, },
+        { id: 'trak', label: 'Trak', numeric: false, disablePadding: true, },
+        { id: 'age', label: 'Age', numeric: false, disablePadding: true, },
+        { id: 'duscription', label: 'Duscription', numeric: false, disablePadding: true, },
     ];
     return <CustomTable headCells={headCells} rows={rows} />
 }

@@ -29,12 +29,12 @@ export default function Site() {
     ];
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name' },
-        { id: 'address', label: 'Address' },
-        { id: 'phone', label: 'Phone' },
-        { id: 'city', label: 'City' },
-        { id: 'typeOfActivity', label: 'Type Of Activity' },
-        { id: 'age', label: 'Age' },
+        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
+        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
+        { id: 'phone', label: 'Phone', numeric: false, disablePadding: true, },
+        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
+        { id: 'typeOfActivity', label: 'Type Of Activity', numeric: false, disablePadding: true, },
+        { id: 'age', label: 'Age', numeric: false, disablePadding: true, },
 
 
 

@@ -14,6 +14,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
+import clsx from 'clsx';
+//import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography'
 //import Toolbar from '@material-ui/core/Toolbar';
 //import Typography from '@material-ui/core/Typography';
 //import Checkbox from '@material-ui/core/Checkbox';
@@ -85,8 +88,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                     headCells.map((headCell) => (
                         <TableCell
                             key={headCell.id}
-                            align='right'
-                            padding={'default'}
+                            //padding='default'
+                            //align={headCell.numeric center}
+                            align='center'
+                            // padding={headCell.disablePadding ? 'none' : 'default'}
+
+                            // padding='default'
                             sortDirection={orderBy === headCell.id ? order : false}
                         >
                             <TableSortLabel
@@ -169,7 +176,7 @@ export default function CustomTable(props: CustomTableProps) {
         setPage(0);
     };
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+    //const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
@@ -204,17 +211,17 @@ export default function CustomTable(props: CustomTableProps) {
 
                                     return (
                                         <TableRow
+                                            key={row.name}
                                         /*hover
                                         onClick={(event) => handleClick(event, row.name)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.name}
                                         selected={isItemSelected}*/
                                         >
                                             {
                                                 props.headCells.map((h, idx) => {
-                                                    return <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                    return <TableCell key={idx} component="th" id={labelId} scope="row" padding="none">
                                                         {row[h.id]}
                                                     </TableCell>
                                                 })
