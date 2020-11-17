@@ -17,6 +17,7 @@ export default function Countries() {
         { name: 'France', flag: France, isFavorite: false, id: 'a' + (i = i + 1).toString() }
     ]);
     const history = useHistory();//מילה שמורה בשביל ניתוב בין עמודים
+
     const updateIsFavorite = (id: string) => {
         let arr = [...countries]
         arr.forEach(a => {

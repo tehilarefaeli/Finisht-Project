@@ -5,7 +5,6 @@ import { Switch, Redirect, Route, Router, BrowserRouter } from 'react-router-dom
 import SignIn from './components/Sign-in';
 import SignUp from './components/Sing-up';
 import ChooseContry from './components/Choose-contry';
-
 import RecipeReviewCard from './components/Cards';
 import Country from './components/Countries';
 import Hotel from './components/Hotel';
@@ -14,6 +13,7 @@ import Synagogue from './components/Synagogue';
 import Tour from './components/Tour';
 import Site from './components/Site';
 import User from './components/User';
+
 
 
 
@@ -33,12 +33,6 @@ function App() {
         <Route path="/tour" component={Tour} />
         <Route path="/site" component={Site} />
         <Route path="/user" component={User} />
-
-
-
-
-
-
       </Switch>
     </div>
   );

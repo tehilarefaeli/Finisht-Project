@@ -89,7 +89,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         key={headCell.id}
                         //align={headCell.numeric center}
                         align='center'
-                        padding={headCell.disablePadding ? 'none' : 'default'}
+                        padding={'default'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
@@ -144,7 +144,6 @@ export default function CustomTable(props: CustomTableProps) {
     const [orderBy, setOrderBy] = React.useState<string>('address');
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
@@ -179,12 +178,11 @@ export default function CustomTable(props: CustomTableProps) {
     return (
         <div className={classes.root} id="Table">
             <Paper className={classes.paper} id="table">
-
                 <TableContainer>
                     <Table
                         className={classes.table}
                         aria-labelledby="tableTitle"
-                        size={dense ? 'small' : 'medium'}
+                        size='medium'
                         aria-label="enhanced table"
                     >
                         <EnhancedTableHead
@@ -226,7 +224,7 @@ export default function CustomTable(props: CustomTableProps) {
                                     );
                                 })}
                             {emptyRows > 0 && (
-                                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                                <TableRow style={{ height: (100 * emptyRows) }}>
                                     <TableCell colSpan={6} />
                                 </TableRow>
                             )}

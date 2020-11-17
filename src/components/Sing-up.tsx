@@ -12,18 +12,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -46,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+
+    const history = useHistory();
+    const toSingIn = (e: any) => {
+        history.push(`/signin`)
+    }
     const classes = useStyles();
 
     return (
@@ -107,7 +101,16 @@ export default function SignUp() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="verifyPassword"
+                                label="Verify Password"
+                                type="password"
+                                id="verifyPassword"
+                                autoComplete="current-password"
+                            />
                         </Grid>
                     </Grid>
                     <Button
@@ -121,9 +124,9 @@ export default function SignUp() {
           </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-              </Link>
+                            <Link onClick={toSingIn}>
+                                {"Already have an account? Sign in"}
+                            </Link>
                         </Grid>
                     </Grid>
                 </form>
