@@ -2,7 +2,6 @@
 import React from 'react';
 //import clsx from 'clsx'
 import { HeadCell } from '../interfaces/HeadCell.interface';
-
 import { createStyles,/*lighten,*/ makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,20 +13,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
-import clsx from 'clsx';
-//import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography'
-//import Toolbar from '@material-ui/core/Toolbar';
-//import Typography from '@material-ui/core/Typography';
-//import Checkbox from '@material-ui/core/Checkbox';
-//import IconButton from '@material-ui/core/IconButton';
-//import Tooltip from '@material-ui/core/Tooltip';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Switch from '@material-ui/core/Switch';
-//import DeleteIcon from '@material-ui/icons/Delete';
-//import FilterListIcon from '@material-ui/icons/FilterList';
-
-
 
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -152,16 +137,6 @@ export default function CustomTable(props: CustomTableProps) {
         setOrderBy(property);
     };
 
-    //const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //    if (event.target.checked) {
-    //        const newSelecteds = props.rows.map((n) => n.name);
-    //        setSelected(newSelecteds);
-    //        return;
-    //    }
-    //    setSelected([]);
-    //};
-
-
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -170,8 +145,6 @@ export default function CustomTable(props: CustomTableProps) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
-    //const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
@@ -215,7 +188,7 @@ export default function CustomTable(props: CustomTableProps) {
                                         >
                                             {
                                                 props.headCells.map((h, idx) => {
-                                                    return <TableCell key={idx} component="th" id={labelId} scope="row" padding="none">
+                                                    return <TableCell key={idx} component="th" id={labelId} scope="row" >
                                                         {row[h.id]}
                                                     </TableCell>
                                                 })

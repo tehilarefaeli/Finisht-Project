@@ -92,7 +92,10 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link onClick={toSingUp}>
+                            <Link
+                                onClick={toSingUp}
+                                className="Link"
+                            >
                                 {"Don't have an account? Sign Up"}
                             </Link>
 

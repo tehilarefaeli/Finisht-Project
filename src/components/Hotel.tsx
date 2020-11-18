@@ -2,6 +2,8 @@ import React from 'react'
 import { HotelInterface } from '../interfaces/Hotel.interface';
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import CustomTable from './Table';
+//import CustomTable from './Table';
+
 
 export default function Hotel() {
     function createData(
@@ -26,11 +28,11 @@ export default function Hotel() {
 
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
-        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
-        { id: 'phone', label: 'Phone', numeric: false, disablePadding: true, },
-        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
-        { id: 'manager', label: 'Manager', numeric: false, disablePadding: true, },
-        { id: 'stars', label: 'Stars', numeric: false, disablePadding: true, },
+        { id: 'address', label: 'Address', numeric: true, disablePadding: false, },
+        { id: 'phone', label: 'Phone', numeric: true, disablePadding: false, },
+        { id: 'city', label: 'City', numeric: true, disablePadding: false, },
+        { id: 'manager', label: 'Manager', numeric: true, disablePadding: false, },
+        { id: 'stars', label: 'Stars', numeric: true, disablePadding: false, },
 
     ];
     return <CustomTable headCells={headCells} rows={rows} />
