@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './App.css';
 import { Switch, Redirect, Route, Router, BrowserRouter } from 'react-router-dom';
 import SignIn from './components/Sign-in';
@@ -12,6 +11,9 @@ import Synagogue from './components/Synagogue';
 import Tour from './components/Tour';
 import Site from './components/Site';
 import User from './components/User';
+import ValidationTextFields from './components/bb';
+import FormDialog from './components/PersonalArea';
+import FormDialogPassword from './components/ChangePassword';
 
 function App() {
   return (
@@ -28,10 +30,9 @@ function App() {
         <Route path="/tour" component={Tour} />
         <Route path="/site" component={Site} />
         <Route path="/user" component={User} />
-
-
-
-
+        <Route path="/a" component={ValidationTextFields} />
+        <Route path="/form" component={FormDialog} />
+        <Route path="/t" component={FormDialogPassword} />
 
 
 

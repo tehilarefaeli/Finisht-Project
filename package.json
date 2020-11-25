@@ -13,6 +13,8 @@
     "@types/node": "^12.12.69",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
     "material-ui-image": "^3.3.0",
     "react": "^17.0.0",
     "react-card": "^1.0.4",

@@ -14,7 +14,6 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
 
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -179,12 +178,6 @@ export default function CustomTable(props: CustomTableProps) {
                                     return (
                                         <TableRow
                                             key={row.name}
-                                        /*hover
-                                        onClick={(event) => handleClick(event, row.name)}
-                                        role="checkbox"
-                                        aria-checked={isItemSelected}
-                                        tabIndex={-1}
-                                        selected={isItemSelected}*/
                                         >
                                             {
                                                 props.headCells.map((h, idx) => {

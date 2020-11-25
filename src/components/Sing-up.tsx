@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    root: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: 200,
+        },
+    }
 }));
 
 export default function SignUp() {
@@ -56,6 +62,8 @@ export default function SignUp() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                // id="standard-error-helper-text"
+                                //helperText="Incorrect entry."
                                 autoComplete="fname"
                                 name="firstName"
                                 variant="outlined"
@@ -83,6 +91,7 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 id="email"
+                                type="email"
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
