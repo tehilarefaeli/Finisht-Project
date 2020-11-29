@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,9 +39,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const history = useHistory();
+    const [formData, setFormData] = useState<any>({
+
+        email: '',
+        password: '',
+
+    })
+    const [submitted, setSubmitted] = useState(false);
+    const formRef = useRef(null);
     const toSingUp = (e: any) => {
         history.push(`/signup`)
     }
+
+    useEffect(() => {
+        if (submitted)
+            setTimeout(() => setSubmitted(false), 5000);
+    }, [submitted]);
+
+    const handleChange = (event: any) => {
+        let fd = { ...formData };
+        fd[event.target.name] = event.target.value;
+        setFormData(fd)
+    }
+
+    const handleSubmit = () => {
+        setSubmitted(true);
+    }
+
     const classes = useStyles();
     return (
         <Container component="main" maxWidth="xs">
@@ -51,40 +76,54 @@ export default function SignIn() {
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign In
-        </Typography>
+                </Typography>
                 <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
+                    <ValidatorForm
+                        ref={formRef}
+                        onSubmit={handleSubmit}
                     >
-                        Sign In
+                        <TextValidator
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="email"
+                            label="Email"
+                            type="email"
+                            id="email"
+                            autoComplete="email"
+                            onChange={handleChange}
+                            value={formData.email}
+                            validators={['required', 'isEmail']}
+                            errorMessages={['this field is required', 'email is not valid']}
+                        />
+                        <br />
+
+                        <TextValidator
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={handleChange}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            value={formData.password}
+                        />
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign In
           </Button>
+                    </ValidatorForm>
                     <Grid container>
                         < Grid item xs>
                             <Link href="#" variant="body2">

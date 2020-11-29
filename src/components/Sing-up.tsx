@@ -15,14 +15,6 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 
-// const [fields, setFields] = useState<any[]>([
-//     {firstName:false,lastName:false,email:false,password:false,verifyPassword:false}
-// ]);
-//const checkValidation=(e:any,field:any)=>{
-//    var arr=[...fields]
-//  var check=arr[field]?true:false;
-//}
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -53,10 +45,11 @@ export default function SignUp() {
 
     const history = useHistory();
     const [formData, setFormData] = useState<any>({
-        email: '',
         firstName: '',
+        lastName: '',
+        email: '',
         password: '',
-        repeatPassword: '',
+        //  repeatPassword: '',
     })
     const [submitted, setSubmitted] = useState(false);
     const formRef = useRef(null);
@@ -98,164 +91,127 @@ export default function SignUp() {
 
     const classes = useStyles();
     return (
-        <ValidatorForm
-            ref={formRef}
-            onSubmit={handleSubmit}
-        >
-            <h2>Simple form</h2>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                 </Typography>
+                <form className={classes.form} noValidate>
+                    <ValidatorForm
+                        ref={formRef}
+                        onSubmit={handleSubmit}
+                    >
+                        <br />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextValidator
+                                    // id="standard-error-helper-text"
+                                    //helperText="Incorrect entry."
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    onChange={handleChange}
+                                    value={formData.firstName}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    autoFocus
+                                />
+                            </Grid>
+                            <br />
+                            <Grid item xs={12} sm={6}>
+                                <TextValidator
+                                    autoComplete="lname"
+                                    name="lastName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    onChange={handleChange}
+                                    value={formData.lastName}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    autoFocus
+                                />
+                            </Grid>
+                            <br />
 
-            <TextValidator
-                label="Email"
-                onChange={handleChange}
-                name="email"
-                value={formData.email}
-                validators={['required', 'isEmail']}
-                errorMessages={['this field is required', 'email is not valid']}
-            />
-            <br />
-            <TextValidator
-                label="FirstName"
-                onChange={handleChange}
-                name="firstName"
-                value={formData.firstName}
-                validators={['required']}
-                errorMessages={['this field is required']}
-            />
-            <br />
-            <TextValidator
-                label="Password"
-                onChange={handleChange}
-                name="password"
-                type="password"
-                validators={['required']}
-                errorMessages={['this field is required']}
-                value={formData.password}
-            />
-            <br />
-            <TextValidator
-                label="Repeat password"
-                onChange={handleChange}
-                name="repeatPassword"
-                type="password"
-                validators={['isPasswordMatch', 'required']}
-                errorMessages={['password mismatch', 'this field is required']}
-                value={formData.repeatPassword}
-            />
+                            <Grid item xs={12}>
+                                <TextValidator
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="email"
+                                    label="Email"
+                                    type="email"
+                                    id="email"
+                                    autoComplete="email"
+                                    onChange={handleChange}
+                                    value={formData.email}
+                                    validators={['required', 'isEmail']}
+                                    errorMessages={['this field is required', 'email is not valid']}
+                                />
+                            </Grid>
+                            <br />
 
-            <br />
-            <Button
-                color="primary"
-                variant="contained"
-                type="submit"
-                disabled={submitted}
-            >
-                {
-                    (submitted && 'Your form is submitted!')
-                    || (!submitted && 'Submit')
-                }
-            </Button>
-        </ValidatorForm>
+                            < Grid item xs={12}>
+                                <TextValidator
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    onChange={handleChange}
+                                    validators={['required']}
+                                    errorMessages={['this field is required']}
+                                    value={formData.password}
+                                />
+                            </Grid>
+                            <br />
 
+
+                        </Grid>
+
+                        <br />
+                        <Button
+                            fullWidth
+                            color="primary"
+                            variant="contained"
+                            type="submit"
+                            disabled={submitted}
+                        >
+                            {
+                                (submitted && 'Your form is submitted!')
+                                || (!submitted && 'Submit')
+                            }
+                        </Button>
+                        <br />
+                    </ValidatorForm>
+                    <br />
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Link
+                                onClick={toSingIn}
+                                className="Link"
+                            >
+                                {"Already have an account? Sign in"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+            <Box mt={5}>
+            </Box>
+        </Container>
     );
-    // <Container component="main" maxWidth="xs">
-    //     <CssBaseline />
-    //     <div className={classes.paper}>
-    //         <Avatar className={classes.avatar}>
-
-    //         </Avatar>
-    //         <Typography component="h1" variant="h5">
-    //             Sign up
-    // </Typography>
-    //         <form className={classes.form} noValidate>
-    //             <Grid container spacing={2}>
-    //                 <Grid item xs={12} sm={6}>
-    //                     <TextField
-    //                         // id="standard-error-helper-text"
-    //                         //helperText="Incorrect entry."
-    //                         autoComplete="fname"
-    //                         name="firstName"
-    //                         variant="outlined"
-    //                         required
-    //                         fullWidth
-    //                         id="firstName"
-    //                         label="First Name"
-    //                         autoFocus
-    //                     //onBlur={checkValidation}
-    //                     // helperText= {check?''}
-    //                     />
-    //                 </Grid>
-    //                 <Grid item xs={12} sm={6}>
-    //                     <TextField
-    //                         variant="outlined"
-    //                         required
-    //                         fullWidth
-    //                         id="lastName"
-    //                         label="Last Name"
-    //                         name="lastName"
-    //                         autoComplete="lname"
-    //                     />
-    //                 </Grid>
-    //                 <Grid item xs={12}>
-    //                     <TextField
-    //                         variant="outlined"
-    //                         required
-    //                         fullWidth
-    //                         id="email"
-    //                         type="email"
-    //                         label="Email Address"
-    //                         name="email"
-    //                         autoComplete="email"
-    //                     />
-    //                 </Grid>
-    //                 <Grid item xs={12}>
-    //                     <TextField
-    //                         variant="outlined"
-    //                         required
-    //                         fullWidth
-    //                         name="password"
-    //                         label="Password"
-    //                         type="password"
-    //                         id="password"
-    //                         autoComplete="current-password"
-    //                     />
-    //                 </Grid>
-    //                 <Grid item xs={12}>
-    //                     <TextField
-    //                         variant="outlined"
-    //                         required
-    //                         fullWidth
-    //                         name="verifyPassword"
-    //                         label="Verify Password"
-    //                         type="password"
-    //                         id="verifyPassword"
-    //                         autoComplete="current-password"
-    //                     />
-    //                 </Grid>
-    //             </Grid>
-    //             <Button
-    //                 type="submit"
-    //                 fullWidth
-    //                 variant="contained"
-    //                 color="primary"
-    //                 className={classes.submit}
-    //             >
-    //                 Sign Up
-    //             </Button>
-    //             <Grid container justify="flex-end">
-    //                 <Grid item>
-    //                     <Link
-    //                         onClick={toSingIn}
-    //                         className="Link"
-    //                     >
-    //                         {"Already have an account? Sign in"}
-    //                     </Link>
-    //                 </Grid>
-    //             </Grid>
-    //         </form>
-    //     </div>
-    //     <Box mt={5}>
-    //     </Box>
-    // </Container>
-
-
 }
