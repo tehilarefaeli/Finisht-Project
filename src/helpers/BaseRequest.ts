@@ -6,7 +6,7 @@ import axios from 'axios';
 // data:FormData;
 // }
 export default function BaseRequest(url: string, param?: any) {
-    const baseURL = "localhost:8080/api/"
+    const baseURL = "http://localhost:8080/api/"
 
     return axios.get(
         `${baseURL}${url}`, {

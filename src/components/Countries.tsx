@@ -31,7 +31,11 @@ export default function Countries() {
         setCountries(arr)
     }
     useEffect(() => {
-        BaseRequest('getCountry').then(res => console.log("useEffect", res)).catch(e => console.log(e))
+        BaseRequest('getCountry').then(res => {
+            console.log("useEffect", res);
+            setCountriesList(res);
+        }
+        ).catch(e => console.log(e))
 
     }, []);
     const ServiceChange = (e: any, option: any) => {
@@ -42,7 +46,7 @@ export default function Countries() {
     }
     const selectCountry = (e: any, newValue: any) => {
         console.log(newValue);
-        setCountrySelected(newValue?.title)
+        setCountrySelected(newValue?.country)
     }
     return (
         <div className="parent">
@@ -53,7 +57,10 @@ export default function Countries() {
                 options={countriesList}
                 //options={top100Films}
                 onChange={selectCountry}
-                //getOptionLabel={(option) => option.title}
+                getOptionLabel={(option) => {
+                    console.log(option);
+                    return option.country;
+                }}
                 style={{ width: 348 }}
                 renderInput={(params) => <TextField {...params} label="Choose Country" variant="outlined" />}
             />
