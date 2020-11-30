@@ -77,72 +77,78 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign In
                 </Typography>
-                <form className={classes.form} noValidate>
 
-                    <ValidatorForm
-                        ref={formRef}
-                        onSubmit={handleSubmit}
+
+                <ValidatorForm className={classes.form} noValidate
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                >
+                    <TextValidator
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="email"
+                        label="Email"
+                        type="email"
+                        id="email"
+                        autoComplete="email"
+                        onChange={handleChange}
+                        value={formData.email}
+                        validators={['required', 'isEmail']}
+                        errorMessages={['this field is required', 'email is not valid']}
+                    />
+                    <br />
+
+                    <TextValidator
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                        value={formData.password}
+                    />
+
+                    <br />
+                    <Button
+                        fullWidth
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        disabled={submitted}
                     >
-                        <TextValidator
-                            variant="outlined"
-                            required
-                            fullWidth
-                            name="email"
-                            label="Email"
-                            type="email"
-                            id="email"
-                            autoComplete="email"
-                            onChange={handleChange}
-                            value={formData.email}
-                            validators={['required', 'isEmail']}
-                            errorMessages={['this field is required', 'email is not valid']}
-                        />
-                        <br />
+                        {
+                            (submitted && 'Your form is submitted!')
+                            || (!submitted && 'Submit')
+                        }
+                    </Button>
 
-                        <TextValidator
-                            variant="outlined"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            onChange={handleChange}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                            value={formData.password}
-                        />
-
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            Sign In
-          </Button>
-                    </ValidatorForm>
-                    <Grid container>
-                        < Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
+                </ValidatorForm>
+                <br />
+                <Grid container>
+                    < Grid item xs>
+                        <Link href="#" variant="body2">
+                            Forgot password?
                             </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link
-                                onClick={toSingUp}
-                                className="Link"
-                            >
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-
-
-
-                        </Grid>
                     </Grid>
-                </form>
+                    <Grid item>
+                        <Link
+                            onClick={toSingUp}
+                            className="Link"
+                        >
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+
+
+
+                    </Grid>
+                </Grid>
+
             </div>
             <Box mt={8}>
 

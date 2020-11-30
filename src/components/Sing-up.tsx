@@ -99,116 +99,115 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign up
                  </Typography>
-                <form className={classes.form} noValidate>
-                    <ValidatorForm
-                        ref={formRef}
-                        onSubmit={handleSubmit}
-                    >
-                        <br />
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextValidator
-                                    // id="standard-error-helper-text"
-                                    //helperText="Incorrect entry."
-                                    autoComplete="fname"
-                                    name="firstName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    onChange={handleChange}
-                                    value={formData.firstName}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    autoFocus
-                                />
-                            </Grid>
-                            <br />
-                            <Grid item xs={12} sm={6}>
-                                <TextValidator
-                                    autoComplete="lname"
-                                    name="lastName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    onChange={handleChange}
-                                    value={formData.lastName}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    autoFocus
-                                />
-                            </Grid>
-                            <br />
-
-                            <Grid item xs={12}>
-                                <TextValidator
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="email"
-                                    label="Email"
-                                    type="email"
-                                    id="email"
-                                    autoComplete="email"
-                                    onChange={handleChange}
-                                    value={formData.email}
-                                    validators={['required', 'isEmail']}
-                                    errorMessages={['this field is required', 'email is not valid']}
-                                />
-                            </Grid>
-                            <br />
-
-                            < Grid item xs={12}>
-                                <TextValidator
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={handleChange}
-                                    validators={['required']}
-                                    errorMessages={['this field is required']}
-                                    value={formData.password}
-                                />
-                            </Grid>
-                            <br />
-
-
-                        </Grid>
-
-                        <br />
-                        <Button
-                            fullWidth
-                            color="primary"
-                            variant="contained"
-                            type="submit"
-                            disabled={submitted}
-                        >
-                            {
-                                (submitted && 'Your form is submitted!')
-                                || (!submitted && 'Submit')
-                            }
-                        </Button>
-                        <br />
-                    </ValidatorForm>
+                <ValidatorForm className={classes.form} noValidate
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                >
                     <br />
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link
-                                onClick={toSingIn}
-                                className="Link"
-                            >
-                                {"Already have an account? Sign in"}
-                            </Link>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextValidator
+                                // id="standard-error-helper-text"
+                                //helperText="Incorrect entry."
+                                autoComplete="fname"
+                                name="firstName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                onChange={handleChange}
+                                value={formData.firstName}
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                                autoFocus
+                            />
                         </Grid>
+                        <br />
+                        <Grid item xs={12} sm={6}>
+                            <TextValidator
+                                autoComplete="lname"
+                                name="lastName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                onChange={handleChange}
+                                value={formData.lastName}
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                                autoFocus
+                            />
+                        </Grid>
+                        <br />
+
+                        <Grid item xs={12}>
+                            <TextValidator
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="email"
+                                label="Email"
+                                type="email"
+                                id="email"
+                                autoComplete="email"
+                                onChange={handleChange}
+                                value={formData.email}
+                                validators={['required', 'isEmail']}
+                                errorMessages={['this field is required', 'email is not valid']}
+                            />
+                        </Grid>
+                        <br />
+
+                        < Grid item xs={12}>
+                            <TextValidator
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={handleChange}
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                                value={formData.password}
+                            />
+                        </Grid>
+                        <br />
+
+
                     </Grid>
-                </form>
+
+                    <br />
+                    <Button
+                        fullWidth
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        disabled={submitted}
+                    >
+                        {
+                            (submitted && 'Your form is submitted!')
+                            || (!submitted && 'Submit')
+                        }
+                    </Button>
+                    <br />
+                </ValidatorForm>
+                <br />
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        <Link
+                            onClick={toSingIn}
+                            className="Link"
+                        >
+                            {"Already have an account? Sign in"}
+                        </Link>
+                    </Grid>
+                </Grid>
+
             </div>
             <Box mt={5}>
             </Box>

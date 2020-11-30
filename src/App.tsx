@@ -11,17 +11,24 @@ import Synagogue from './components/Synagogue';
 import Tour from './components/Tour';
 import Site from './components/Site';
 import User from './components/User';
-//import ValidationTextFields from './components/bb';
-import FormDialog from './components/PersonalArea';
 import FormDialogPassword from './components/ChangePassword';
 import axios from 'axios';
+import FormDialog from './components/PersonalArea';
+import Header from './components/Header‏'
+
+
 
 function App() {
 
 
   return (
+
     <div className="App">
+      <Header />
+
+
       <Switch>
+
 
         <Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
@@ -33,14 +40,14 @@ function App() {
         <Route path="/tour" component={Tour} />
         <Route path="/site" component={Site} />
         <Route path="/user" component={User} />
-        <Route path="/form" component={FormDialog} />
         <Route path="/t" component={FormDialogPassword} />
-
-
+        <Route path="/w" component={FormDialog} />
 
 
       </Switch>
+
     </div>
+
   );
 }
 
