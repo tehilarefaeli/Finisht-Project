@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import CustomTable from './Table';
-import { TourInterface } from '../interfaces/Tour.interface';
 import { UserInterface } from '../interfaces/User.intarface';
+import { useParams } from 'react-router-dom';
+import BaseRequest from '../helpers/BaseRequest';
 
 export default function User() {
     function createData(
@@ -25,6 +26,7 @@ export default function User() {
         createData('Cupcakem', 'c', 'g', 'b', '555', 'aaaaaaa',),
 
     ];
+
 
     const headCells: HeadCell[] = [
         { id: 'userName', label: ' User Name', numeric: false, disablePadding: true, },

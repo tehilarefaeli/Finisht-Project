@@ -1,27 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { RestaurantInterface } from '../interfaces/Restaurant.interface';
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import CustomTable from './Table';
+import { useParams } from 'react-router-dom';
+import BaseRequest from '../helpers/BaseRequest';
 
 export default function Restaurant() {
-    function createData(
-        name: string,
-        phone: number,
-        address: string,
-        city: string,
-        cosher: string
-    ): RestaurantInterface {
-        return { name, phone, address, city, cosher };
-    }
+    
 
-    const rows = [
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr'),
-        createData('Donut', 452, 'wwwwww', 'rrrrrr', 'ooooooo',),
-        createData('Eclair', 262, 'bbbbbb', 'zzzzzz', 'opppp',),
-        createData('Frozen yoghurt', 159, 'jjjjjj', 'nnnnnn', 'qqqqqqq'),
-        createData('Gingerbread', 356, 'lllllll', 'iiiiiii', 'mmmmm'),
-        createData('Honeycomb', 408, 'bbbbb', 'aaaaa', 'm',),
-    ];
+
+
+    var rows: RestaurantInterface[] = [];
+    const { serviceId, country } = useParams();
+    const [restaurant, setRestaurant] = useState<any[]>([])
+    useEffect(() => {
+        console.log("params: ", serviceId, country)
+        BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
+            console.log("useEffect", res);
+            setRestaurant(res);
+
+        }
+        ).catch(e => console.log(e))
+    }, []);
+
+
+
 
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
@@ -32,5 +35,5 @@ export default function Restaurant() {
 
 
     ];
-    return <CustomTable headCells={headCells} rows={rows} />
+    return <CustomTable headCells={headCells} rows={restaurant} />
 }

@@ -32,7 +32,7 @@ export default function Countries() {
         setCountries(arr)
     }
     useEffect(() => {
-        BaseRequest('getCountry').then(res => {
+        BaseRequest('countries/getCountry').then(res => {
             console.log("useEffect", res);
             setCountriesList(res);
         }
@@ -40,7 +40,7 @@ export default function Countries() {
     }, []);
 
     useEffect(() => {
-        BaseRequest('getService').then(res => {
+        BaseRequest('services/getService').then(res => {
             console.log("useEffect", res);
             setServiceList(res);
         }
@@ -51,7 +51,9 @@ export default function Countries() {
         console.log(option)
         let route = option.serviceName//option.serviceName.charAt(0).toLowerCase() + option.serviceName.slice(1);
         console.log(route)
-        history.push(`/${route}`)
+        const serviceId = option.id;
+        console.log(serviceId);
+        history.push(`/${route}/${serviceId}/${countrySelected}`);
     }
     const selectCountry = (e: any, newValue: any) => {
         console.log(newValue);

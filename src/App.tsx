@@ -15,6 +15,7 @@ import FormDialogPassword from './components/ChangePassword';
 import axios from 'axios';
 import FormDialog from './components/PersonalArea';
 import Header from './components/Header‏'
+import MyAccount from './components/MyAccount';
 
 
 
@@ -26,20 +27,18 @@ function App() {
     <div className="App">
       <Header />
 
-
       <Switch>
-
-
         <Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/recipeReviewCard" component={RecipeReviewCard} />
         <Route path="/country" component={Country} />
-        <Route path="/hotel" component={Hotel} />
-        <Route path="/restaurant" component={Restaurant} />
-        <Route path="/synagogue" component={Synagogue} />
-        <Route path="/tour" component={Tour} />
-        <Route path="/site" component={Site} />
+        <Route path="/hotel/:serviceId/:country" component={Hotel} />
+        <Route path="/restaurant/:serviceId/:country" component={Restaurant} />
+        <Route path="/synagogue/:serviceId/:country" component={Synagogue} />
+        <Route path="/tour/:serviceId/:country" component={Tour} />
+        <Route path="/site/:serviceId/:country" component={Site} />
         <Route path="/user" component={User} />
+        <Route path="/myAcccount" component={MyAccount} />
         <Route path="/t" component={FormDialogPassword} />
         <Route path="/w" component={FormDialog} />
 

@@ -12,8 +12,11 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
+import BaseRequestPost from '../helpers/BaseRequestPost ';
+
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -44,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
 
     const history = useHistory();
+
     const [formData, setFormData] = useState<any>({
         firstName: '',
         lastName: '',
@@ -57,7 +61,9 @@ export default function SignUp() {
     const toSingIn = (e: any) => {
         history.push(`/signin`)
     }
-
+    const toMyAccount = (data: any) => {
+        history.push({ pathname: '/myAccount', state: { data: data } })
+    }
     //useEffect(() => {
     //    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
     //        let fd = { ...formData }
@@ -74,6 +80,8 @@ export default function SignUp() {
     //    }
     //}, [])
 
+
+
     useEffect(() => {
         if (submitted)
             setTimeout(() => setSubmitted(false), 5000);
@@ -86,8 +94,18 @@ export default function SignUp() {
     }
 
     const handleSubmit = () => {
-        setSubmitted(true);
+        BaseRequestPost('users/signup', formData).then(res => {
+            console.log("sign up response", res);
+
+            setSubmitted(true);
+            const data = { id: res, ...formData }
+            toMyAccount(data);
+        }
+        ).catch(e => console.log(e))
+
     }
+
+
 
     const classes = useStyles();
     return (

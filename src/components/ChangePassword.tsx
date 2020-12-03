@@ -55,7 +55,7 @@ export default function FormDialogPassword() {
                 <DialogTitle id="form-dialog-title">Change password</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Change you passward
+                        Change your passward
                      </DialogContentText>
 
 

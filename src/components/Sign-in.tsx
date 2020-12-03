@@ -50,6 +50,10 @@ export default function SignIn() {
     const toSingUp = (e: any) => {
         history.push(`/signup`)
     }
+    const toMyAccount = () => {
+        history.push(`/myAccount`)
+    }
+
 
     useEffect(() => {
         if (submitted)
@@ -64,6 +68,7 @@ export default function SignIn() {
 
     const handleSubmit = () => {
         setSubmitted(true);
+        toMyAccount();
     }
 
     const classes = useStyles();

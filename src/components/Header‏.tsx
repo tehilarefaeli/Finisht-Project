@@ -117,6 +117,9 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false)
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
+    const navigate = (link: string) => {
+        history.push(link);
+    }
 
     const toSingUp = (e: any) => {
         history.push(`/signup`)
@@ -148,13 +151,26 @@ export default function Header() {
         >
             <List>
                 {/* להוסיף איקונים וניתובים כאוביקטים */}
-                {['Home', 'countries', 'Tours', 'Halachic Times', 'Weather', 'About Us', 'Our Team', 'Terms', 'Help', 'Contact'].map((text, index) => (
-                    <ListItem button key={text} >
+                {[
+                    { text: 'Home', link: '/' },
+                    { text: 'countries', link: '/country' },
+                    { text: 'Tours', link: '/' },
+                    { text: 'Halachic Times', link: '/' },
+                    { text: 'Weather', link: '/' },
+                    { text: 'About Us', link: '/' },
+                    { text: 'Our Team', link: '/' },
+                    { text: 'Terms', link: '/' },
+                    { text: 'Help', link: '/' },
+                    { text: 'Contact', link: '/' },
+                ].map((item, index) => (
+                    <ListItem button key={item.text} onClick={() => navigate(item.link)}>
                         {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-                        <ListItemText primary={text} />
+                        <ListItemText primary={item.text} />
 
                     </ListItem>
                 ))}
+
+
             </List>
             <Divider />
             {/* <List>
