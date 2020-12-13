@@ -16,10 +16,11 @@ import axios from 'axios';
 import FormDialog from './components/PersonalArea';
 import Header from './components/Header‏'
 import MyAccount from './components/MyAccount';
+import Home from './components/Home';
 
 
 
-function App() {
+export default function App() {
 
 
   return (
@@ -28,6 +29,7 @@ function App() {
       <Header />
 
       <Switch>
+        <Route path="/home" component={Home} />
         <Route path="/signIn" component={SignIn} />
         <Route path="/signUp" component={SignUp} />
         <Route path="/recipeReviewCard" component={RecipeReviewCard} />
@@ -50,4 +52,3 @@ function App() {
   );
 }
 
-export default App;

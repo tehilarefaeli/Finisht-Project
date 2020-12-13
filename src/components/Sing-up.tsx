@@ -47,11 +47,14 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
 
     const history = useHistory();
-
+    // const [p, setP] = useState<any>({
+    //     password: '',
+    //     repeatPassword: ''
+    // })
     const [formData, setFormData] = useState<any>({
+        email: '',
         firstName: '',
         lastName: '',
-        email: '',
         password: '',
         //  repeatPassword: '',
     })
@@ -64,23 +67,30 @@ export default function SignUp() {
     const toMyAccount = (data: any) => {
         history.push({ pathname: '/myAccount', state: { data: data } })
     }
-    //useEffect(() => {
-    //    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-    //        let fd = { ...formData }
-    //        if (value !== fd.password) {
-    //            return false;
-    //        }
-    //        return true;
-    //    })
-    //
-    //    return () => {
-    //        // if (ValidatorForm.hasValidationRule('isPasswordMatch')) {
-    //        ValidatorForm.removeValidationRule('isPasswordMatch');
-    //        // }
-    //    }
-    //}, [])
 
 
+    // useEffect(() => {
+    //     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+    //         let fd = { ...p }
+    //         if (value !== fd.password) {
+    //             return false;
+    //         }
+    //         return true;
+    //     })
+
+    //     return () => {
+    //         // if (ValidatorForm.hasValidationRule('isPasswordMatch')) {
+    //         ValidatorForm.removeValidationRule('isPasswordMatch');
+    //         // }
+    //     }
+    // }, [])
+
+
+    // const handleChangeP = (event: any) => {
+    //     let fd = { ...p };
+    //     fd[event.target.name] = event.target.value;
+    //     setP(fd)
+    // }
 
     useEffect(() => {
         if (submitted)
@@ -94,11 +104,20 @@ export default function SignUp() {
     }
 
     const handleSubmit = () => {
+        console.log("data sent to server////", formData);
+
         BaseRequestPost('users/signup', formData).then(res => {
             console.log("sign up response", res);
-
             setSubmitted(true);
-            const data = { id: res, ...formData }
+            const data = {
+                id: res,
+                email: formData.email,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                password: formData.password
+            }
+            setFormData(data);
+            console.log("dataaaaa", data);
             toMyAccount(data);
         }
         ).catch(e => console.log(e))
@@ -187,15 +206,14 @@ export default function SignUp() {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password"
+                                autoComplete="password"
                                 onChange={handleChange}
+                                value={formData.password}
                                 validators={['required']}
                                 errorMessages={['this field is required']}
-                                value={formData.password}
                             />
                         </Grid>
                         <br />
-
 
                     </Grid>
 

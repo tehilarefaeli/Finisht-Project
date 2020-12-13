@@ -124,6 +124,13 @@ export default function Header() {
     const toSingUp = (e: any) => {
         history.push(`/signup`)
     }
+    const toMYAccount = (e: any) => {
+        history.push(`/myAcccount`)
+    }
+
+    const toHome = (e: any) => {
+        history.push(`/home`)
+    }
     const drawerStyle = {
         height: '94%',
         marginTop: '6%'
@@ -152,7 +159,7 @@ export default function Header() {
             <List>
                 {/* להוסיף איקונים וניתובים כאוביקטים */}
                 {[
-                    { text: 'Home', link: '/' },
+                    { text: 'Home', link: '/home' },
                     { text: 'countries', link: '/country' },
                     { text: 'Tours', link: '/' },
                     { text: 'Halachic Times', link: '/' },
@@ -243,7 +250,7 @@ export default function Header() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="homePage" aria-haspopup="true" color="inherit" >
+                        <IconButton aria-label="homePage" aria-haspopup="true" color="inherit" onClick={toHome} >
                             <HomeIcon />
                         </IconButton>
                         {/*<IconButton
@@ -291,7 +298,7 @@ export default function Header() {
                                             <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                                 <MenuItem onClick={toSingUp}>Sign In\Sign Up</MenuItem>
                                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                                <MenuItem onClick={handleClose}>My Account</MenuItem>
+                                                <MenuItem onClick={toMYAccount}>My Account</MenuItem>
                                                 <MenuItem onClick={handleClose}>My Countries</MenuItem>
                                                 <MenuItem onClick={handleClose}>My Tours</MenuItem>
                                                 <MenuItem onClick={handleClose}>Last Viewed</MenuItem>
