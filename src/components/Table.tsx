@@ -186,6 +186,13 @@ export default function CustomTable(props: CustomTableProps) {
                                                     </TableCell>
                                                 })
                                             }
+                                            {  props.permission==1? props.managerCells.map((h, idx) => {
+                                                    return <TableCell key={idx} component="th" id={labelId} scope="row" >
+                                                        {row[h.id]}
+                                                    </TableCell>
+                                                }):null
+
+                                            }
                                         </TableRow>
                                     );
                                 })}

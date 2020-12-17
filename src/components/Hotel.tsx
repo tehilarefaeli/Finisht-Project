@@ -41,6 +41,15 @@ export default function Hotel() {
         { id: 'stars', label: 'Stars', numeric: true, disablePadding: false, },
 
     ];
+
+    const managerCells: HeadCell[] = [
+        { id: 'edit', label: ' Edit', numeric: false, disablePadding: true, },
+        { id: 'delete', label: 'Delete', numeric: true, disablePadding: false, },
+
+
+    ];
+
+
     const filterHotels = (e: any, newValue: any) => {
         if (newValue == "")
             setFilteredHotels(hotel);
@@ -75,6 +84,6 @@ export default function Hotel() {
                 />
             )}
         />
-        <CustomTable headCells={headCells} rows={filteredHotels} />
+        <CustomTable headCells={headCells} rows={filteredHotels} permission={1} managerCells={managerCells}/>
     </div>
 }
