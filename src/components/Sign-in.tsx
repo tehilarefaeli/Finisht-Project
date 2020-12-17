@@ -50,8 +50,11 @@ export default function SignIn() {
     const toSingUp = (e: any) => {
         history.push(`/signup`)
     }
-    const toMyAccount = () => {
-        history.push(`/myAccount`)
+    const toMyAccount = (user:{}) => {
+      
+        //  localStorage.setItem()
+     //   localStorage.getItem()
+        history.push(`/myAccount`);
     }
 
 
@@ -68,7 +71,7 @@ export default function SignIn() {
 
     const handleSubmit = () => {
         setSubmitted(true);
-        toMyAccount();
+        toMyAccount({}); //!!!!
     }
 
     const classes = useStyles();

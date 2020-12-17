@@ -17,7 +17,6 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import BaseRequestPost from '../helpers/BaseRequestPost ';
 
 
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -65,7 +64,14 @@ export default function SignUp() {
         history.push(`/signin`)
     }
     const toMyAccount = (data: any) => {
-        history.push({ pathname: '/myAccount', state: { data: data } })
+
+        const stringData = JSON.stringify(data);
+        localStorage.setItem('user', stringData);
+
+        // const strungData = localStorage.getItem('user');
+        // const data1 = JSON.parse(strungData);
+
+        history.push('/myAccount');
     }
 
 
@@ -108,23 +114,26 @@ export default function SignUp() {
 
         BaseRequestPost('users/signup', formData).then(res => {
             console.log("sign up response", res);
-            setSubmitted(true);
-            const data = {
-                id: res,
-                email: formData.email,
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                password: formData.password
+            if (res.success) {
+                setSubmitted(true);
+                const data = {
+                    id: res,
+                    email: formData.email,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    password: formData.password
+                }
+                setFormData(data);
+                console.log("dataaaaa", data);
+                toMyAccount(data);
             }
-            setFormData(data);
-            console.log("dataaaaa", data);
-            toMyAccount(data);
+            else{
+
+            }
         }
         ).catch(e => console.log(e))
 
     }
-
-
 
     const classes = useStyles();
     return (
@@ -215,6 +224,25 @@ export default function SignUp() {
                         </Grid>
                         <br />
 
+
+                        <Grid item xs={12} sm={6}>
+                            <TextValidator
+                                // id="standard-error-helper-text"
+                                //helperText="Incorrect entry."
+                                autoComplete="fname"
+                                name="firstName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                onChange={handleChange}
+                                value={formData.firstName}
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                                autoFocus
+                            />
+                        </Grid>
                     </Grid>
 
                     <br />
