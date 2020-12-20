@@ -27,11 +27,11 @@ export default function Restaurant() {
 
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
-        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
-        { id: 'phone', label: 'Phone', numeric: false, disablePadding: true, },
-        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
-        { id: 'cosher', label: 'Cosher', numeric: false, disablePadding: true, },
+        { id: 'name', label: ' Name',  },
+        { id: 'address', label: 'Address', },
+        { id: 'phone', label: 'Phone', },
+        { id: 'city', label: 'City', },
+        { id: 'cosher', label: 'Cosher',  },
 
 
     ];

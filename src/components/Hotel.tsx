@@ -32,22 +32,22 @@ export default function Hotel() {
 
 
 
-    const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
-        { id: 'address', label: 'Address', numeric: true, disablePadding: false, },
-        { id: 'phone', label: 'Phone', numeric: true, disablePadding: false, },
-        { id: 'city', label: 'City', numeric: true, disablePadding: false, },
-        { id: 'manager', label: 'Manager', numeric: true, disablePadding: false, },
-        { id: 'stars', label: 'Stars', numeric: true, disablePadding: false, },
+    // const headCells: HeadCell[] = [
+    //     { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
+    //     { id: 'address', label: 'Address', numeric: true, disablePadding: false, },
+    //     { id: 'phone', label: 'Phone', numeric: true, disablePadding: false, },
+    //     { id: 'city', label: 'City', numeric: true, disablePadding: false, },
+    //     { id: 'manager', label: 'Manager', numeric: true, disablePadding: false, },
+    //     { id: 'stars', label: 'Stars', numeric: true, disablePadding: false, },
 
-    ];
+    // ];
 
-    const managerCells: HeadCell[] = [
-        { id: 'edit', label: ' Edit', numeric: false, disablePadding: true, },
-        { id: 'delete', label: 'Delete', numeric: true, disablePadding: false, },
+    // const managerCells: HeadCell[] = [
+    //     { id: 'edit', label: ' Edit', numeric: false, disablePadding: true, },
+    //     { id: 'delete', label: 'Delete', numeric: true, disablePadding: false, },
 
 
-    ];
+    // ];
 
 
     const filterHotels = (e: any, newValue: any) => {
@@ -84,6 +84,6 @@ export default function Hotel() {
                 />
             )}
         />
-        <CustomTable headCells={headCells} rows={filteredHotels} permission={1} managerCells={managerCells}/>
+        {/* <CustomTable headCells={headCells} rows={filteredHotels} permission={1} managerCells={managerCells} /> */}
     </div>
 }

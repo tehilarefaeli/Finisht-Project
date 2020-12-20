@@ -41,13 +41,13 @@ export default function Synagogue() {
 
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
-        { id: 'address', label: 'Address', numeric: false, disablePadding: true, },
-        { id: 'phone', label: 'Phone', numeric: false, disablePadding: true, },
-        { id: 'city', label: 'City', numeric: false, disablePadding: true, },
-        { id: 'rabbi', label: 'Rabbi', numeric: false, disablePadding: true, },
-        { id: 'nusach', label: 'Nusach', numeric: false, disablePadding: true, },
-        { id: 'community', label: 'Community', numeric: false, disablePadding: true, },
+        { id: 'address', label: 'Address', },
+        { id: 'phone', label: 'Phone', },
+        { id: 'city', label: 'City', },
+        { id: 'name', label: ' Name', },
+        { id: 'rabbi', label: 'Rabbi', },
+        { id: 'nusach', label: 'Nusach', },
+        { id: 'community', label: 'Community', },
 
 
     ];

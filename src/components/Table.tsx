@@ -77,9 +77,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                        active={orderBy === headCell.id}
+                        direction={orderBy === headCell.id ? order : 'asc'}
+                        onClick={createSortHandler(headCell.id)}
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
@@ -126,7 +126,7 @@ export default function CustomTable(props: CustomTableProps) {
     const classes = useStyles();
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<string>('address');
-    const [selected, setSelected] = React.useState<string[]>([]);
+    // const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -186,13 +186,13 @@ export default function CustomTable(props: CustomTableProps) {
                                                     </TableCell>
                                                 })
                                             }
-                                            {  props.permission==1? props.managerCells.map((h, idx) => {
+                                            {/* {  props.permission==1? props.managerCells.map((h, idx) => {
                                                     return <TableCell key={idx} component="th" id={labelId} scope="row" >
                                                         {row[h.id]}
                                                     </TableCell>
                                                 }):null
 
-                                            }
+                                            } */}
                                         </TableRow>
                                     );
                                 })}

@@ -14,6 +14,7 @@ import BaseRequest from '../helpers/BaseRequest';
 export default function Countries() {
     let i = 0;
     const [countries, setCountries] = useState<Country[]>([
+
         { name: 'Israel', flag: Israel, isFavorite: false, id: 'a' + (i = i + 1).toString() },
         { name: 'United Kingdom', flag: United_Kingdom, isFavorite: true, id: 'a' + (i = i + 1).toString() },
         { name: 'France', flag: France, isFavorite: false, id: 'a' + (i = i + 1).toString() }
@@ -22,6 +23,15 @@ export default function Countries() {
     const [serviceList, setServiceList] = useState<any[]>([])
     const [countrySelected, setCountrySelected] = useState<string>('')
     const history = useHistory();//מילה שמורה בשביל ניתוב בין עמודים
+
+    // useEffect(() => {
+    //     BaseRequest('countries/getCountries').then(res => {
+    //         console.log("useEffect", res);
+    //         setCountries(res);
+    //     }
+    //     ).catch(e => console.log(e))
+    // }, []);
+
 
     const updateIsFavorite = (id: string) => {
         let arr = [...countries]

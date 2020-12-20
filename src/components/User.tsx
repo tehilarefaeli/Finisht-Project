@@ -29,12 +29,12 @@ export default function User() {
 
 
     const headCells: HeadCell[] = [
-        { id: 'userName', label: ' User Name', numeric: false, disablePadding: true, },
-        { id: 'country', label: 'Country', numeric: false, disablePadding: true, },
-        { id: 'language', label: 'Language', numeric: false, disablePadding: true, },
-        { id: 'email', label: ' Email', numeric: false, disablePadding: true, },
-        { id: 'password', label: 'Password ', numeric: false, disablePadding: true, },
-        { id: 'permission', label: 'Permission', numeric: false, disablePadding: true, },
+        { id: 'userName', label: ' User Name', },
+        { id: 'country', label: 'Country', },
+        { id: 'language', label: 'Language', },
+        { id: 'email', label: ' Email', },
+        { id: 'password', label: 'Password ', },
+        { id: 'permission', label: 'Permission', },
     ];
     return <CustomTable headCells={headCells} rows={rows} />
 }
