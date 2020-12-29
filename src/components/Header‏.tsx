@@ -298,7 +298,7 @@ export default function Header() {
                                             <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                                 <MenuItem onClick={toSingUp}>Sign In\Sign Up</MenuItem>
                                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                                <MenuItem onClick={toMYAccount}>My Account</MenuItem>
+                                                {/* <MenuItem onClick={toMYAccount}>My Account</MenuItem> */}
                                                 <MenuItem onClick={handleClose}>My Countries</MenuItem>
                                                 <MenuItem onClick={handleClose}>My Tours</MenuItem>
                                                 <MenuItem onClick={handleClose}>Last Viewed</MenuItem>

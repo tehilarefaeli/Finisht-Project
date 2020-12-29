@@ -40,7 +40,7 @@ export default function App() {
         <Route path="/tour/:serviceId/:country" component={Tour} />
         <Route path="/site/:serviceId/:country" component={Site} />
         <Route path="/user" component={User} />
-        <Route path="/myAcccount" component={MyAccount} />
+        <Route path="/myAccount" component={MyAccount} />
         <Route path="/t" component={FormDialogPassword} />
         <Route path="/w" component={FormDialog} />
 

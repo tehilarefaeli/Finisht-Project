@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import BaseRequest from '../helpers/BaseRequest';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,39 +40,54 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
     const history = useHistory();
-    const [formData, setFormData] = useState<any>({
+    // const [formData, setFormData] = useState<any>({
 
-        email: '',
-        password: '',
+    //     email: '',
+    //     password: '',
 
-    })
+    // })
+    const [email, setEmail] = useState<string>()
+    const [password, setPassword] = useState<string>()
     const [submitted, setSubmitted] = useState(false);
     const formRef = useRef(null);
     const toSingUp = (e: any) => {
         history.push(`/signup`)
     }
-    const toMyAccount = (user:{}) => {
-      
-        //  localStorage.setItem()
-     //   localStorage.getItem()
-        history.push(`/myAccount`);
+    // const toMyAccount = (user:{}) => {
+
+    //     //  localStorage.setItem()
+    //  //   localStorage.getItem()
+    //     history.push(`/myAccount`);
+    // }
+
+    const toMyAccount = () => {
+        BaseRequest(`users/logIn/${email}/${password}`).then((res) => {
+            console.log(res);
+            localStorage.setItem('email', res.email);
+            localStorage.setItem('password', res.password);
+            if (localStorage.getItem('email') != 'undefined')
+                history.push("/myAccount");
+
+
+        }).catch((e) => {
+            console.log(e)
+        })
     }
-
-
     useEffect(() => {
         if (submitted)
             setTimeout(() => setSubmitted(false), 5000);
+
     }, [submitted]);
 
-    const handleChange = (event: any) => {
-        let fd = { ...formData };
-        fd[event.target.name] = event.target.value;
-        setFormData(fd)
-    }
+    // const handleChange = (event: any) => {
+    //     let fd = { ...formData };
+    //     fd[event.target.name] = event.target.value;
+    //     setFormData(fd);
+    // }
 
     const handleSubmit = () => {
         setSubmitted(true);
-        toMyAccount({}); //!!!!
+        // toMyAccount{formData} //!!!!
     }
 
     const classes = useStyles();
@@ -100,8 +116,9 @@ export default function SignIn() {
                         type="email"
                         id="email"
                         autoComplete="email"
-                        onChange={handleChange}
-                        value={formData.email}
+                        onChange={(e: any) => setEmail(e.target.value)}
+                        //  onChange={handleChange}
+                        value={email}
                         validators={['required', 'isEmail']}
                         errorMessages={['this field is required', 'email is not valid']}
                     />
@@ -116,10 +133,11 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        onChange={handleChange}
+                        onChange={(e: any) => setPassword(e.target.value)}
+                        //onChange={handleChange}
                         validators={['required']}
                         errorMessages={['this field is required']}
-                        value={formData.password}
+                        value={password}
                     />
 
                     <br />
@@ -128,13 +146,15 @@ export default function SignIn() {
                         color="primary"
                         variant="contained"
                         type="submit"
-                        disabled={submitted}
+                        // disabled={submitted}
+                        onClick={toMyAccount}
                     >
                         {
-                            (submitted && 'Your form is submitted!')
+                            (submitted && 'No email or paswoord correct')
                             || (!submitted && 'Submit')
                         }
                     </Button>
+
 
                 </ValidatorForm>
                 <br />

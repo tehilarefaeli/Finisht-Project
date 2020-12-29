@@ -94,6 +94,13 @@ export default function FormDialog() {
                             id="language"
                             label="Language"
                         />
+                        <br />
+                        < TextField
+                            autoFocus
+                            margin="dense"
+                            id="password"
+                            label="Password"
+                        />
                         <DialogActions>
                             <Button onClick={handleClose} color="primary">
                                 Cancel

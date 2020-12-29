@@ -127,7 +127,7 @@ export default function SignUp() {
                 console.log("dataaaaa", data);
                 toMyAccount(data);
             }
-            else{
+            else {
 
             }
         }
@@ -165,7 +165,7 @@ export default function SignUp() {
                                 onChange={handleChange}
                                 value={formData.firstName}
                                 validators={['required']}
-                                errorMessages={['this field is required']}
+                                errorMessages={['This field is required']}
                                 autoFocus
                             />
                         </Grid>
@@ -182,7 +182,7 @@ export default function SignUp() {
                                 onChange={handleChange}
                                 value={formData.lastName}
                                 validators={['required']}
-                                errorMessages={['this field is required']}
+                                errorMessages={['This field is required']}
                                 autoFocus
                             />
                         </Grid>
@@ -201,7 +201,7 @@ export default function SignUp() {
                                 onChange={handleChange}
                                 value={formData.email}
                                 validators={['required', 'isEmail']}
-                                errorMessages={['this field is required', 'email is not valid']}
+                                errorMessages={['This field is required', 'Email is not valid']}
                             />
                         </Grid>
                         <br />
@@ -219,13 +219,13 @@ export default function SignUp() {
                                 onChange={handleChange}
                                 value={formData.password}
                                 validators={['required']}
-                                errorMessages={['this field is required']}
+                                errorMessages={['This field is required']}
                             />
                         </Grid>
                         <br />
 
 
-                        <Grid item xs={12} sm={6}>
+                        {/* <Grid item xs={12} sm={6}>
                             <TextValidator
                                 // id="standard-error-helper-text"
                                 //helperText="Incorrect entry."
@@ -242,7 +242,7 @@ export default function SignUp() {
                                 errorMessages={['this field is required']}
                                 autoFocus
                             />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
 
                     <br />

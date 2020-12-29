@@ -32,16 +32,16 @@ export default function Hotel() {
 
 
 
-    // const headCells: HeadCell[] = [
-    //     { id: 'name', label: ' Name', numeric: false, disablePadding: true, },
-    //     { id: 'address', label: 'Address', numeric: true, disablePadding: false, },
-    //     { id: 'phone', label: 'Phone', numeric: true, disablePadding: false, },
-    //     { id: 'city', label: 'City', numeric: true, disablePadding: false, },
-    //     { id: 'manager', label: 'Manager', numeric: true, disablePadding: false, },
-    //     { id: 'stars', label: 'Stars', numeric: true, disablePadding: false, },
 
-    // ];
+    const headCells: HeadCell[] = [
+        { id: 'name', label: ' Name', },
+        { id: 'address', label: 'Address', },
+        { id: 'phone', label: 'Phone', },
+        { id: 'city', label: 'City', },
+        { id: 'manager', label: 'Manager', },
+        { id: 'stars', label: 'Stars', },
 
+    ];
     // const managerCells: HeadCell[] = [
     //     { id: 'edit', label: ' Edit', numeric: false, disablePadding: true, },
     //     { id: 'delete', label: 'Delete', numeric: true, disablePadding: false, },
@@ -49,31 +49,35 @@ export default function Hotel() {
 
     // ];
 
-
-    const filterHotels = (e: any, newValue: any) => {
-        if (newValue == "")
-            setFilteredHotels(hotel);
-        else {
-            const modifiedHotels = filteredHotels.filter(h => h.name.includes(newValue));
-        }
-    }
-
-
     return <div>
         <Autocomplete
             freeSolo
             id="free-solo-2-demo"
             disableClearable
             options={filteredHotels.map((hotel) => hotel.name).concat(
-                filteredHotels.map((hotel) => hotel.address)
-            )}
+                filteredHotels.map((hotel) => hotel.address),
+                filteredHotels.map((hotel) => hotel.city),
+                filteredHotels.map((hotel) => hotel.manager),
+                //filteredHotels.map((hotel) => hotel.start),
+            )
+            }
             onChange={(e: any, newValue: any) => {
                 if (newValue == "")
                     setFilteredHotels(hotel);
                 else {
                     const modifiedHotels = filteredHotels.filter(h => h.name.includes(newValue));
+                    setFilteredHotels(modifiedHotels);
                 }
             }}
+            onBlur={(e: any) => {
+                if (e.target.value == "")
+                    setFilteredHotels(hotel);
+                else {
+                    const modifiedHotels = filteredHotels.filter(h => h.name.includes(e.target.value));
+                    setFilteredHotels(modifiedHotels);
+                }
+            }}
+
             renderInput={(params) => (
                 <TextField
                     {...params}
@@ -84,6 +88,9 @@ export default function Hotel() {
                 />
             )}
         />
-        {/* <CustomTable headCells={headCells} rows={filteredHotels} permission={1} managerCells={managerCells} /> */}
+
+        {/* permission={1} managerCells={managerCells} */}
+        {<CustomTable headCells={headCells} rows={filteredHotels} />}
+
     </div>
 }
