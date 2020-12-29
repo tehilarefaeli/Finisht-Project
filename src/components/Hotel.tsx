@@ -6,6 +6,7 @@ import BaseRequest from '../helpers/BaseRequest';
 import { useParams } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
+import ldsh from 'lodash';
 //import axios from 'axios';
 //import CustomTable from './Table';
 
@@ -32,7 +33,6 @@ export default function Hotel() {
 
 
 
-
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
         { id: 'address', label: 'Address', },
@@ -49,11 +49,13 @@ export default function Hotel() {
 
     // ];
 
+    const res =ldsh.union();
     return <div>
         <Autocomplete
             freeSolo
             id="free-solo-2-demo"
             disableClearable
+            //לבדוק איך משתמשים עם לודש ויוניון כדי למנוע כפולים
             options={filteredHotels.map((hotel) => hotel.name).concat(
                 filteredHotels.map((hotel) => hotel.address),
                 filteredHotels.map((hotel) => hotel.city),
@@ -61,22 +63,38 @@ export default function Hotel() {
                 //filteredHotels.map((hotel) => hotel.start),
             )
             }
+            onKeyUp={(e: any) => {
+                const newValue = e.target.value;
+                if (newValue == "") {
+                    setFilteredHotels(hotel);
+                } else {
+                    const modifiedHotels = filteredHotels.filter(h => {
+                        return h.name.includes(newValue) || h.city.includes(newValue)
+                            || h.address.includes(newValue) || h.manager.includes(newValue);
+                    });
+                    setFilteredHotels(modifiedHotels);
+                }
+            }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "")
                     setFilteredHotels(hotel);
                 else {
-                    const modifiedHotels = filteredHotels.filter(h => h.name.includes(newValue));
+                    const modifiedHotels = filteredHotels.filter(h => {
+
+                        return h.name.includes(newValue) || h.city.includes(newValue)
+                            || h.address.includes(newValue) || h.manager.includes(newValue);
+                    });
                     setFilteredHotels(modifiedHotels);
                 }
             }}
-            onBlur={(e: any) => {
-                if (e.target.value == "")
-                    setFilteredHotels(hotel);
-                else {
-                    const modifiedHotels = filteredHotels.filter(h => h.name.includes(e.target.value));
-                    setFilteredHotels(modifiedHotels);
-                }
-            }}
+            // onBlur={(e: any) => {
+            //     if (e.target.value == "")
+            //         setFilteredHotels(hotel);
+            //     else {
+            //         const modifiedHotels = filteredHotels.filter(h => h.name.includes(e.target.value));
+            //         setFilteredHotels(modifiedHotels);
+            //     }
+            // }}
 
             renderInput={(params) => (
                 <TextField
