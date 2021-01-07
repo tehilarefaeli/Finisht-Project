@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react'
 import { RestaurantInterface } from '../interfaces/Restaurant.interface';
 import { HeadCell } from '../interfaces/HeadCell.interface';
@@ -6,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
 import BaseRequest from '../helpers/BaseRequest';
+import ldsh from 'lodash';
+
 
 export default function Restaurant() {
     var rows: RestaurantInterface[] = [];
@@ -17,6 +21,7 @@ export default function Restaurant() {
         BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
             console.log("useEffect", res);
             setRestaurant(res);
+            setFilteredRestaurant(res);
 
         }
         ).catch(e => console.log(e))
@@ -26,41 +31,51 @@ export default function Restaurant() {
 
 
     const headCells: HeadCell[] = [
-        { id: 'name', label: ' Name',  },
+        { id: 'name', label: ' Name', },
         { id: 'address', label: 'Address', },
         { id: 'phone', label: 'Phone', },
         { id: 'city', label: 'City', },
-        { id: 'cosher', label: 'Cosher',  },
-
-
+        { id: 'cosher', label: 'Cosher', },
     ];
-    return<div>
 
-            <Autocomplete
+    const getOptions = () => {
+        return ldsh.union(filteredRestaurant.map((restaurant) => restaurant.name),
+            filteredRestaurant.map((restaurant) => restaurant.address),
+            filteredRestaurant.map((restaurant) => restaurant.phone),
+            filteredRestaurant.map((restaurant) => restaurant.city),
+            filteredRestaurant.map((restaurant) => restaurant.cosher))
+    }
+    return <div>
+
+        <Autocomplete
             freeSolo
             id="free-solo-2-demo"
             disableClearable
-            options={filteredRestaurant.map((restaurant) => restaurant.name).concat(
-                filteredRestaurant.map((restaurant) => restaurant.address),
-                filteredRestaurant.map((restaurant) => restaurant.phone),
-                filteredRestaurant.map((restaurant) => restaurant.city),
-                filteredRestaurant.map((restaurant) => restaurant.cosher),
-                //filteredHotels.map((hotel) => hotel.start),
-            )
-            }
-            onChange={(e: any, newValue: any) => {
+            options={getOptions()}
+            onKeyUp={(e: any) => {
+                const newValue = e.target.value;
                 if (newValue == "")
-                setFilteredRestaurant(restaurant);
+                    setFilteredRestaurant(restaurant);
                 else {
-                    const modifiedRestaurant = filteredRestaurant.filter(r => r.name.includes(newValue));
+                    const modifiedRestaurant = filteredRestaurant.filter(h => {
+                        return h.name.includes(newValue)
+                            || h.address.includes(newValue)
+                            || h.phone.includes(newValue) || h.city.includes(newValue)
+                            || h.cosher.includes(newValue);
+                    });
                     setFilteredRestaurant(modifiedRestaurant);
                 }
             }}
-            onBlur={(e: any) => {
-                if (e.target.value == "")
-                setFilteredRestaurant(restaurant);
+            onChange={(e: any, newValue: any) => {
+                if (newValue == "") {
+                    setFilteredRestaurant(restaurant);
+                }
                 else {
-                    const modifiedRestaurant = filteredRestaurant.filter(h => h.name.includes(e.target.value));
+                    const modifiedRestaurant = filteredRestaurant.filter(h => {
+                        return h.name.includes(newValue) || h.city.includes(newValue)
+                            || h.address.includes(newValue) || h.cosher.includes(newValue)
+                            || h.phone.includes(newValue);
+                    });
                     setFilteredRestaurant(modifiedRestaurant);
                 }
             }}
@@ -75,12 +90,11 @@ export default function Restaurant() {
                 />
             )}
 
-           
         />
 
-     <CustomTable headCells={headCells} rows={filteredRestaurant} />
-     
-     
-     
-     </div>
+        <CustomTable headCells={headCells} rows={filteredRestaurant} />
+
+
+
+    </div>
 }

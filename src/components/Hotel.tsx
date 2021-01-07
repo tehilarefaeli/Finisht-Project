@@ -12,11 +12,6 @@ import ldsh from 'lodash';
 
 
 export default function Hotel() {
-
-
-
-
-
     var rows: HotelInterface[] = [];
     const { serviceId, country } = useParams();
     const [hotel, setHotel] = useState<any[]>([])
@@ -49,25 +44,26 @@ export default function Hotel() {
 
     // ];
 
-    const res =ldsh.union();
+
+    const getOptions = () => {
+        return ldsh.union(filteredHotels.map((hotel) => hotel.name),
+            filteredHotels.map((hotel) => hotel.address),
+            filteredHotels.map((hotel) => hotel.city),
+            filteredHotels.map((hotel) => hotel.manager))
+    }
+
     return <div>
         <Autocomplete
             freeSolo
             id="free-solo-2-demo"
             disableClearable
-            //לבדוק איך משתמשים עם לודש ויוניון כדי למנוע כפולים
-            options={filteredHotels.map((hotel) => hotel.name).concat(
-                filteredHotels.map((hotel) => hotel.address),
-                filteredHotels.map((hotel) => hotel.city),
-                filteredHotels.map((hotel) => hotel.manager),
-                //filteredHotels.map((hotel) => hotel.start),
-            )
-            }
+            className="auto"
+            options={getOptions()}
             onKeyUp={(e: any) => {
                 const newValue = e.target.value;
-                if (newValue == "") {
+                if (newValue == "")
                     setFilteredHotels(hotel);
-                } else {
+                else {
                     const modifiedHotels = filteredHotels.filter(h => {
                         return h.name.includes(newValue) || h.city.includes(newValue)
                             || h.address.includes(newValue) || h.manager.includes(newValue);
@@ -76,8 +72,9 @@ export default function Hotel() {
                 }
             }}
             onChange={(e: any, newValue: any) => {
-                if (newValue == "")
+                if (newValue == "") {
                     setFilteredHotels(hotel);
+                }
                 else {
                     const modifiedHotels = filteredHotels.filter(h => {
 
@@ -87,14 +84,6 @@ export default function Hotel() {
                     setFilteredHotels(modifiedHotels);
                 }
             }}
-            // onBlur={(e: any) => {
-            //     if (e.target.value == "")
-            //         setFilteredHotels(hotel);
-            //     else {
-            //         const modifiedHotels = filteredHotels.filter(h => h.name.includes(e.target.value));
-            //         setFilteredHotels(modifiedHotels);
-            //     }
-            // }}
 
             renderInput={(params) => (
                 <TextField

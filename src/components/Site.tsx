@@ -1,32 +1,27 @@
-import React from 'react'
-import { RestaurantInterface } from '../interfaces/Restaurant.interface';
+import React, { useState, useEffect } from 'react'
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import CustomTable from './Table';
 import { SiteInterface } from '../interfaces/Site.interface';
-
+import { useParams } from 'react-router-dom';
+import BaseRequest from '../helpers/BaseRequest';
+import { TextField } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import ldsh from 'lodash';
 export default function Site() {
-    function createData(
-        name: string,
-        phone: number,
-        address: string,
-        city: string,
-        typeOfActivity: string,
-        age: string,
 
-    ): SiteInterface {
-        return { name, phone, address, city, typeOfActivity, age };
-    }
-
-    const rows = [
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-        createData('Cupcake', 555, 'aaaaaaa', 'vvvvvv', 'rrrrrr', 'dd'),
-
-
-    ];
+    var rows: SiteInterface[] = [];
+    const { serviceId, country } = useParams();
+    const [site, setSite] = useState<any[]>([])
+    const [filteredSite, setFilteredSite] = useState<any[]>([])
+    useEffect(() => {
+        console.log("params: ", serviceId, country)
+        BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
+            console.log("useEffect", res);
+            setSite(res);
+            setFilteredSite(res);
+        }
+        ).catch(e => console.log(e))
+    }, []);
 
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
@@ -35,10 +30,65 @@ export default function Site() {
         { id: 'city', label: 'City', },
         { id: 'typeOfActivity', label: 'Type Of Activity', },
         { id: 'age', label: 'Age', },
-
-
-
-
     ];
-    return <CustomTable headCells={headCells} rows={rows} />
+
+
+    const getOptions = () => {
+        return ldsh.union(filteredSite.map((site) => site.address),
+            filteredSite.map((site) => site.phone),
+            filteredSite.map((site) => site.city),
+            filteredSite.map((site) => site.name),
+            filteredSite.map((site) => site.typeOfActivity),
+            filteredSite.map((site) => site.age))
+    }
+
+
+    return <div>
+        <Autocomplete
+            freeSolo
+            id="free-solo-2-demo"
+            disableClearable
+            className="auto"
+            options={getOptions()}
+            onKeyUp={(e: any) => {
+                const newValue = e.target.value;
+                if (newValue == "")
+                    setFilteredSite(site);
+                else {
+                    const modifiedSite = filteredSite.filter(h => {
+                        return h.address.includes(newValue) || h.phone.includes(newValue)
+                            || h.city.includes(newValue) || h.name.includes(newValue)
+                            || h.typeOfActivity.includes(newValue) || h.age.includes(newValue);
+                    });
+                    setFilteredSite(modifiedSite);
+                }
+            }}
+            onChange={(e: any, newValue: any) => {
+                if (newValue == "") {
+                    setFilteredSite(site);
+                }
+                else {
+                    const modifiedSite = filteredSite.filter(h => {
+
+                        return h.address.includes(newValue) || h.phone.includes(newValue)
+                            || h.city.includes(newValue) || h.name.includes(newValue)
+                            || h.typeOfActivity.includes(newValue) || h.age.includes(newValue);
+                    });
+                    setFilteredSite(modifiedSite);
+                }
+            }}
+
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label="Search input"
+                    margin="normal"
+                    variant="outlined"
+                    InputProps={{ ...params.InputProps, type: 'search' }}
+                />
+            )}
+        />
+        {<CustomTable headCells={headCells} rows={filteredSite} />}
+    </div>
 }
+
