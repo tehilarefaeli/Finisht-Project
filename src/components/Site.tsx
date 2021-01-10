@@ -32,14 +32,13 @@ export default function Site() {
         { id: 'age', label: 'Age', },
     ];
 
-
     const getOptions = () => {
-        return ldsh.union(filteredSite.map((site) => site.address),
+        return ldsh.union(filteredSite.map((site) => site.name),
+            filteredSite.map((site) => site.address),
             filteredSite.map((site) => site.phone),
             filteredSite.map((site) => site.city),
-            filteredSite.map((site) => site.name),
-            filteredSite.map((site) => site.typeOfActivity),
-            filteredSite.map((site) => site.age))
+            filteredSite.map((site) => site.typeOfActivity))
+        // filteredSite.map((site) => site.age))
     }
 
 
@@ -48,7 +47,7 @@ export default function Site() {
             freeSolo
             id="free-solo-2-demo"
             disableClearable
-            className="auto"
+            //className="auto"
             options={getOptions()}
             onKeyUp={(e: any) => {
                 const newValue = e.target.value;
@@ -58,7 +57,8 @@ export default function Site() {
                     const modifiedSite = filteredSite.filter(h => {
                         return h.address.includes(newValue) || h.phone.includes(newValue)
                             || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.typeOfActivity.includes(newValue) || h.age.includes(newValue);
+                            || h.typeOfActivity.includes(newValue);
+                        // || h.age.includes(newValue);
                     });
                     setFilteredSite(modifiedSite);
                 }
@@ -69,15 +69,14 @@ export default function Site() {
                 }
                 else {
                     const modifiedSite = filteredSite.filter(h => {
-
                         return h.address.includes(newValue) || h.phone.includes(newValue)
                             || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.typeOfActivity.includes(newValue) || h.age.includes(newValue);
+                            || h.typeOfActivity.includes(newValue);
+                        //  || h.age.includes(newValue);
                     });
                     setFilteredSite(modifiedSite);
                 }
             }}
-
             renderInput={(params) => (
                 <TextField
                     {...params}

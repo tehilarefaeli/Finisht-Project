@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import CustomTable from './Table';
 import { TourInterface } from '../interfaces/Tour.interface';
@@ -24,6 +23,7 @@ export default function Tour() {
         }
         ).catch(e => console.log(e))
     }, []);
+
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
         { id: 'address', label: 'Address', },
@@ -38,17 +38,18 @@ export default function Tour() {
     ];
 
     const getOptions = () => {
-        return ldsh.union(filteredTour.map((restaurant) => restaurant.name),
-            filteredTour.map((restaurant) => restaurant.address),
-            filteredTour.map((restaurant) => restaurant.city),
-            filteredTour.map((restaurant) => restaurant.guide),
-            filteredTour.map((restaurant) => restaurant.phoneGuide),
-            filteredTour.map((restaurant) => restaurant.ciplaceOfDeparturety),
-            filteredTour.map((restaurant) => restaurant.duration),
-            filteredTour.map((restaurant) => restaurant.level),
-            filteredTour.map((restaurant) => restaurant.age),
-            filteredTour.map((restaurant) => restaurant.duscription))
+        return ldsh.union(filteredTour.map((tour) => tour.name),
+            filteredTour.map((tour) => tour.address),
+            filteredTour.map((tour) => tour.city),
+            filteredTour.map((tour) => tour.guide),
+            // filteredTour.map((tour) => tour.phoneGuide),
+            filteredTour.map((tour) => tour.placeOfDeparture),
+            filteredTour.map((tour) => tour.duration),
+            filteredTour.map((tour) => tour.level))
+        // filteredTour.map((tour) => tour.age))
+        // filteredTour.map((tour) => tour.description))
     }
+
     return <div>
 
         <Autocomplete
@@ -63,10 +64,12 @@ export default function Tour() {
                 else {
                     const modifiedTour = filteredTour.filter(h => {
                         return h.name.includes(newValue) || h.address.includes(newValue)
-                            || h.city.includes(newValue) || h.guide.includes(newValue)
-                            || h.phoneGuide.includes(newValue) || h.ciplaceOfDeparturety.includes(newValue)
-                            || h.duration.includes(newValue) || h.level.includes(newValue)
-                            || h.age.includes(newValue) || h.duscription.includes(newValue);
+                            || h.city.includes(newValue)
+                            || h.guide.includes(newValue)
+                            //|| h.phoneGuide.includes(newValue) 
+                            || h.placeOfDeparture.includes(newValue)
+                            || h.duration.includes(newValue) || h.level.includes(newValue);
+                        // || h.age.includes(newValue);// || h.duscription.includes(newValue);
                     });
                     setFilteredTour(modifiedTour);
                 }
@@ -78,10 +81,12 @@ export default function Tour() {
                 else {
                     const modifiedTour = filteredTour.filter(h => {
                         return h.name.includes(newValue) || h.address.includes(newValue)
-                            || h.city.includes(newValue) || h.guide.includes(newValue)
-                            || h.phoneGuide.includes(newValue) || h.ciplaceOfDeparturety.includes(newValue)
-                            || h.duration.includes(newValue) || h.level.includes(newValue)
-                            || h.age.includes(newValue) || h.duscription.includes(newValue);
+                            || h.city.includes(newValue)
+                            || h.guide.includes(newValue)
+                            //|| h.phoneGuide.includes(newValue) 
+                            || h.placeOfDeparture.includes(newValue)
+                            || h.duration.includes(newValue) || h.level.includes(newValue);
+                        // || h.age.includes(newValue);// || h.duscription.includes(newValue);
                     });
                     setFilteredTour(modifiedTour);
                 }
@@ -98,14 +103,11 @@ export default function Tour() {
             )}
 
         />
-
         <CustomTable headCells={headCells} rows={filteredTour} />
-
-
-
     </div>
 }
 
-    // const headCells: HeadCell[] = [
 
-    // ];
+
+
+

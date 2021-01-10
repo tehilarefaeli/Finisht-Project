@@ -27,9 +27,6 @@ export default function Restaurant() {
         ).catch(e => console.log(e))
     }, []);
 
-
-
-
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
         { id: 'address', label: 'Address', },
