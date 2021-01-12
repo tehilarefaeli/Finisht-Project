@@ -27,7 +27,9 @@ export default function Hotel() {
     }, []);
 
 
-
+    const editRow = (rows: HotelInterface[]) => {
+        //קריאה לשרת לשמור נתונים
+    }
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
         { id: 'address', label: 'Address', },
@@ -97,7 +99,7 @@ export default function Hotel() {
         />
 
         {/* permission={1} managerCells={managerCells} */}
-        {<CustomTable headCells={headCells} rows={filteredHotels} />}
+        {<CustomTable headCells={headCells} rows={filteredHotels} editRow={(data: any[]) => editRow(data)} />}
 
     </div>
 }

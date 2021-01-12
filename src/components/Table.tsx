@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 //import clsx from 'clsx'
 import { HeadCell } from '../interfaces/HeadCell.interface';
 import { createStyles,/*lighten,*/ makeStyles, Theme } from '@material-ui/core/styles';
@@ -12,7 +12,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
+import Edit from '@material-ui/icons/Edit';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
+import { TextField } from '@material-ui/core';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -77,9 +79,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
-                        active={orderBy === headCell.id}
-                        direction={orderBy === headCell.id ? order : 'asc'}
-                        onClick={createSortHandler(headCell.id)}
+                            active={orderBy === headCell.id}
+                            direction={orderBy === headCell.id ? order : 'asc'}
+                            onClick={createSortHandler(headCell.id)}
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
@@ -124,8 +126,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CustomTable(props: CustomTableProps) {
     const classes = useStyles();
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<string>('address');
+    const permission = localStorage.getItem('permission');
+    const [displayRows, setDisplayRows] = useState([...props.rows]);
+    const [order, setOrder] = useState<Order>('asc');
+    const [orderBy, setOrderBy] = useState<string>('address');
+    const [editIndex, setEditIndex] = useState(-1);
     // const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -139,13 +144,23 @@ export default function CustomTable(props: CustomTableProps) {
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
-
+    useEffect(() => {
+        setDisplayRows([...props.rows])
+    }, [props.rows]);
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
+    const textChanged = (val: string, rowIdx: any, cellIdx: string) => {
+        let r = [...displayRows];
+        let index = r.findIndex(row => row.id === rowIdx)
+        r[index][cellIdx] = val;
+        setDisplayRows(r)
+    }
+    const saveChanges = () => {
+        props.editRow && props.editRow(displayRows)
+    }
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, displayRows.length - page * rowsPerPage);
 
     return (
         <div className={classes.root} id="Table">
@@ -164,12 +179,12 @@ export default function CustomTable(props: CustomTableProps) {
                             orderBy={orderBy}
                             // onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={props.rows.length}
-                            rows={props.rows}
+                            rowCount={displayRows.length}
+                            rows={displayRows}
                             headCells={props.headCells}
                         />
                         <TableBody>
-                            {stableSort(props.rows, getComparator(order, orderBy))
+                            {stableSort(displayRows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     //const isItemSelected = isSelected(row.name);
@@ -178,13 +193,22 @@ export default function CustomTable(props: CustomTableProps) {
                                     return (
                                         <TableRow
                                             key={row.name}
+                                            onBlur={() => setEditIndex(-1)}
+
                                         >
                                             {
                                                 props.headCells.map((h, idx) => {
                                                     return <TableCell key={idx} component="th" id={labelId} scope="row" >
-                                                        {row[h.id]}
+                                                        {editIndex !== -1 && index === editIndex ?
+                                                            <TextField value={row[h.id]} onChange={(e) => textChanged(e.target.value, row.id, h.id)} /> :
+                                                            row[h.id]}
                                                     </TableCell>
                                                 })
+                                            }
+                                            {
+                                                permission === '1' && <TableCell>
+                                                    <Edit onClick={() => setEditIndex(index)} />
+                                                </TableCell>
                                             }
                                             {/* {  props.permission==1? props.managerCells.map((h, idx) => {
                                                     return <TableCell key={idx} component="th" id={labelId} scope="row" >
@@ -207,7 +231,7 @@ export default function CustomTable(props: CustomTableProps) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={props.rows.length}
+                    count={displayRows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}

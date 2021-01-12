@@ -65,6 +65,7 @@ export default function SignIn() {
             console.log(res);
             localStorage.setItem('email', res.email);
             localStorage.setItem('password', res.password);
+            localStorage.setItem('permission', res.permission);
             if (localStorage.getItem('email') != 'undefined')
                 history.push("/myAccount");
 

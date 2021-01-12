@@ -43,7 +43,6 @@ export default function Restaurant() {
             filteredRestaurant.map((restaurant) => restaurant.cosher))
     }
     return <div>
-
         <Autocomplete
             freeSolo
             id="free-solo-2-demo"
