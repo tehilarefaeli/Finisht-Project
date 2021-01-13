@@ -13,8 +13,17 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -47,13 +56,9 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
     return stabilizedThis.map((el) => el[0]);
 }
 
-
-
 interface EnhancedTableProps {
     classes: ReturnType<typeof useStyles>;
-    // numSelected: number;
     onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
-    // onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     order: Order;
     orderBy: string;
     rowCount: number;
@@ -62,7 +67,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { classes, /*onSelectAllClick,*/ order, orderBy, rowCount, onRequestSort } = props;
+    const { classes,  order, orderBy, rowCount, onRequestSort } = props;
     const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
     };
@@ -73,7 +78,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        //align={headCell.numeric center}
                         align='center'
                         padding={'default'}
                         sortDirection={orderBy === headCell.id ? order : false}
@@ -133,37 +137,77 @@ export default function CustomTable(props: CustomTableProps) {
     const [editIndex, setEditIndex] = useState(-1);
     // const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-
+//שינוי גודל הדף 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
+// 
     useEffect(() => {
-        setDisplayRows([...props.rows])
+    setDisplayRows([...props.rows])
     }, [props.rows]);
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    // אפשור למנהל לשנות תוכן
     const textChanged = (val: string, rowIdx: any, cellIdx: string) => {
         let r = [...displayRows];
         let index = r.findIndex(row => row.id === rowIdx)
         r[index][cellIdx] = val;
         setDisplayRows(r)
     }
+    // שמירת שינויי המנהל
     const saveChanges = () => {
         props.editRow && props.editRow(displayRows)
     }
+    //פתיחת דיאלוג באת מחיקה 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+// סגירת דיאלוג
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, displayRows.length - page * rowsPerPage);
 
     return (
+
         <div className={classes.root} id="Table">
+
+            <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">{"Are you sure you want to delete?"}</DialogTitle>
+                <DialogContent>
+                    {/* { <DialogContentText>
+                        Are you sure you want to delete?
+            </DialogContentText> } */}
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose} color="primary">
+                        No
+            </Button>
+                    <Button onClick={handleClose} color="primary" autoFocus>
+                        Yes
+            </Button>
+                </DialogActions>
+            </Dialog>
+
+
             <Paper className={classes.paper} id="table">
                 <TableContainer>
                     <Table
@@ -210,6 +254,11 @@ export default function CustomTable(props: CustomTableProps) {
                                                     <Edit onClick={() => setEditIndex(index)} />
                                                 </TableCell>
                                             }
+                                            {
+                                                permission === '1' && <TableCell>
+                                                    <Delete onClick={handleClickOpen} />
+                                                </TableCell>
+                                            }
                                             {/* {  props.permission==1? props.managerCells.map((h, idx) => {
                                                     return <TableCell key={idx} component="th" id={labelId} scope="row" >
                                                         {row[h.id]}
@@ -239,6 +288,11 @@ export default function CustomTable(props: CustomTableProps) {
                 />
             </Paper>
 
+
+            <Button id="b" variant="contained" color="secondary" onClick={saveChanges}>
+                Save
+            </Button>
         </div >
     );
 }
+

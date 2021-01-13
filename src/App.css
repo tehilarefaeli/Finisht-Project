@@ -1,8 +1,8 @@
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-contained{
+/* .MuiButtonBase-root.MuiButton-root.MuiButton-contained{
   color: brown;
   background-color: rgb(209, 202, 192);
-}
+} */
 .App-link {
   color: #61dafb;
 }
@@ -39,7 +39,12 @@
 
 #table {
   grid-area: 2 / 2 / 5 / 5;
+  
 }
+#b {
+   grid-area: 5 / 2 / 6 / 5; 
+   height: 20px;
+  }
 /*טקסט בתוך הטבלה*/
 .MuiTableCell-root.MuiTableCell-body{
   text-align: center;

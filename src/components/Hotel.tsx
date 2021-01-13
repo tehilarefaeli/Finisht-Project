@@ -7,13 +7,14 @@ import { useParams } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
 import ldsh from 'lodash';
+import BaseRequestPut from '../helpers/put';
 //import axios from 'axios';
 //import CustomTable from './Table';
 
 
 export default function Hotel() {
     var rows: HotelInterface[] = [];
-    const { serviceId, country } = useParams();
+    const { serviceId, country,id } = useParams();
     const [hotel, setHotel] = useState<any[]>([])
     const [filteredHotels, setFilteredHotels] = useState<any[]>([])
     useEffect(() => {
@@ -28,7 +29,10 @@ export default function Hotel() {
 
 
     const editRow = (rows: HotelInterface[]) => {
-        //קריאה לשרת לשמור נתונים
+        // console.log("id :",id)
+        // BaseRequestPut(`services/editHotel/${id}`).then(res=>{
+
+        // })
     }
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
@@ -39,12 +43,7 @@ export default function Hotel() {
         { id: 'stars', label: 'Stars', },
 
     ];
-    // const managerCells: HeadCell[] = [
-    //     { id: 'edit', label: ' Edit', numeric: false, disablePadding: true, },
-    //     { id: 'delete', label: 'Delete', numeric: true, disablePadding: false, },
 
-
-    // ];
 
 
     const getOptions = () => {
