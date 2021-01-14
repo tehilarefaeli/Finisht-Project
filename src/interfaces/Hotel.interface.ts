@@ -1,4 +1,5 @@
 export interface HotelInterface {
+    id:number;
     name: string;
     phone: number;
     address: string;

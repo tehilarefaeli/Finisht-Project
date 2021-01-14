@@ -14,6 +14,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Save from '@material-ui/icons/Save';
 import { CustomTableProps } from '../interfaces/CustomTableProps.interface';
 import { TextField, Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
@@ -67,7 +68,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { classes,  order, orderBy, rowCount, onRequestSort } = props;
+    const { classes, order, orderBy, rowCount, onRequestSort } = props;
     const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property);
     };
@@ -146,13 +147,13 @@ export default function CustomTable(props: CustomTableProps) {
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-//שינוי גודל הדף 
+    //שינוי גודל הדף 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
-// 
+    // 
     useEffect(() => {
-    setDisplayRows([...props.rows])
+        setDisplayRows([...props.rows])
     }, [props.rows]);
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
@@ -166,14 +167,16 @@ export default function CustomTable(props: CustomTableProps) {
         setDisplayRows(r)
     }
     // שמירת שינויי המנהל
-    const saveChanges = () => {
-        props.editRow && props.editRow(displayRows)
+    const saveChanges = (id: any) => {
+        let r = [...displayRows];
+        let index = r.findIndex(row => row.id === id)
+        props.editRow && props.editRow(r[index])
     }
     //פתיחת דיאלוג באת מחיקה 
     const handleClickOpen = () => {
         setOpen(true);
     };
-// סגירת דיאלוג
+    // סגירת דיאלוג
     const handleClose = () => {
         setOpen(false);
     };
@@ -218,10 +221,8 @@ export default function CustomTable(props: CustomTableProps) {
                     >
                         <EnhancedTableHead
                             classes={classes}
-                            // numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            // onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={displayRows.length}
                             rows={displayRows}
@@ -231,7 +232,6 @@ export default function CustomTable(props: CustomTableProps) {
                             {stableSort(displayRows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    //const isItemSelected = isSelected(row.name);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
@@ -257,6 +257,12 @@ export default function CustomTable(props: CustomTableProps) {
                                             {
                                                 permission === '1' && <TableCell>
                                                     <Delete onClick={handleClickOpen} />
+                                                </TableCell>
+                                            }
+
+                                            {
+                                                permission === '1' && <TableCell>
+                                                    < Save onClick={() => saveChanges(row.id)} />
                                                 </TableCell>
                                             }
                                             {/* {  props.permission==1? props.managerCells.map((h, idx) => {
@@ -289,9 +295,9 @@ export default function CustomTable(props: CustomTableProps) {
             </Paper>
 
 
-            <Button id="b" variant="contained" color="secondary" onClick={saveChanges}>
+            {/* <Button id="b" variant="contained" color="secondary" onClick={saveChanges}>
                 Save
-            </Button>
+            </Button> */}
         </div >
     );
 }

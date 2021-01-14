@@ -14,7 +14,7 @@ import BaseRequestPut from '../helpers/put';
 
 export default function Hotel() {
     var rows: HotelInterface[] = [];
-    const { serviceId, country,id } = useParams();
+    const { serviceId, country, id } = useParams();
     const [hotel, setHotel] = useState<any[]>([])
     const [filteredHotels, setFilteredHotels] = useState<any[]>([])
     useEffect(() => {
@@ -28,11 +28,11 @@ export default function Hotel() {
     }, []);
 
 
-    const editRow = (rows: HotelInterface[]) => {
-        // console.log("id :",id)
-        // BaseRequestPut(`services/editHotel/${id}`).then(res=>{
-
-        // })
+    const editRow = (row: HotelInterface) => {
+        console.log("rows :", row)
+        BaseRequestPut(`services/editHotel/${row.id}`, { ...row }).then(res => {
+            console.log(res)
+        })
     }
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
@@ -98,7 +98,7 @@ export default function Hotel() {
         />
 
         {/* permission={1} managerCells={managerCells} */}
-        {<CustomTable headCells={headCells} rows={filteredHotels} editRow={(data: any[]) => editRow(data)} />}
+        {<CustomTable headCells={headCells} rows={filteredHotels} editRow={(data: any) => editRow(data)} />}
 
     </div>
 }
