@@ -50,6 +50,15 @@ export default function Synagogue() {
             filteredSynagogue.map((synagogue) => synagogue.nusach),
             filteredSynagogue.map((synagogue) => synagogue.community))
     }
+    const s = (newValue: any) => {
+        const modifiedSynagogues = filteredSynagogue.filter(h => {
+            return h.address.includes(newValue) || h.phone.includes(newValue)
+                || h.city.includes(newValue) || h.name.includes(newValue)
+                || h.rabbi.includes(newValue) || h.nusach.includes(newValue)
+                || h.community.includes(newValue);
+        });
+        setFilteredSynagogue(modifiedSynagogues);
+    }
 
 
     return <div>
@@ -63,30 +72,17 @@ export default function Synagogue() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredSynagogue(synagogue);
-                else {
-                    const modifiedSynagogues = filteredSynagogue.filter(h => {
-                        return h.address.includes(newValue) || h.phone.includes(newValue)
-                            || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.rabbi.includes(newValue) || h.nusach.includes(newValue)
-                            || h.community.includes(newValue);
-                    });
-                    setFilteredSynagogue(modifiedSynagogues);
-                }
+                else
+                    s(newValue);
+
+
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {
                     setFilteredSynagogue(synagogue);
                 }
-                else {
-                    const modifiedSynagogues = filteredSynagogue.filter(h => {
-
-                        return h.address.includes(newValue) || h.phone.includes(newValue)
-                            || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.rabbi.includes(newValue) || h.nusach.includes(newValue)
-                            || h.community.includes(newValue);
-                    });
-                    setFilteredSynagogue(modifiedSynagogues);
-                }
+                else
+                    s(newValue);
             }}
 
             renderInput={(params) => (

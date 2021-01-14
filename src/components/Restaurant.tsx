@@ -42,6 +42,15 @@ export default function Restaurant() {
             filteredRestaurant.map((restaurant) => restaurant.city),
             filteredRestaurant.map((restaurant) => restaurant.cosher))
     }
+    const r=(newValue:any)=>{
+        const modifiedRestaurant = filteredRestaurant.filter(h => {
+            return h.name.includes(newValue)
+                || h.address.includes(newValue)
+                || h.phone.includes(newValue) || h.city.includes(newValue)
+                || h.cosher.includes(newValue);
+        });
+        setFilteredRestaurant(modifiedRestaurant);
+    }
     return <div>
         <Autocomplete
             freeSolo
@@ -52,28 +61,18 @@ export default function Restaurant() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredRestaurant(restaurant);
-                else {
-                    const modifiedRestaurant = filteredRestaurant.filter(h => {
-                        return h.name.includes(newValue)
-                            || h.address.includes(newValue)
-                            || h.phone.includes(newValue) || h.city.includes(newValue)
-                            || h.cosher.includes(newValue);
-                    });
-                    setFilteredRestaurant(modifiedRestaurant);
-                }
+                else 
+                    r(newValue);
+                   
+                
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {
                     setFilteredRestaurant(restaurant);
                 }
-                else {
-                    const modifiedRestaurant = filteredRestaurant.filter(h => {
-                        return h.name.includes(newValue) || h.city.includes(newValue)
-                            || h.address.includes(newValue) || h.cosher.includes(newValue)
-                            || h.phone.includes(newValue);
-                    });
-                    setFilteredRestaurant(modifiedRestaurant);
-                }
+                else 
+                    r(newValue);
+                
             }}
 
             renderInput={(params) => (

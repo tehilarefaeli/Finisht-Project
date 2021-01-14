@@ -19,7 +19,6 @@ export default function Tour() {
             console.log("useEffect", res);
             setTourt(res);
             setFilteredTour(res);
-
         }
         ).catch(e => console.log(e))
     }, []);
@@ -34,20 +33,36 @@ export default function Tour() {
         { id: 'duration', label: 'Duration', },
         { id: 'level', label: 'Level', },
         { id: 'age', label: 'Age', },
-        { id: 'duscription', label: 'Duscription' },
+        { id: 'description', label: 'Duscription' },
     ];
 
     const getOptions = () => {
-        return ldsh.union(filteredTour.map((tour) => tour.name),
-            filteredTour.map((tour) => tour.address),
-            filteredTour.map((tour) => tour.city),
-            filteredTour.map((tour) => tour.guide),
-            // filteredTour.map((tour) => tour.phoneGuide),
-            filteredTour.map((tour) => tour.placeOfDeparture),
-            filteredTour.map((tour) => tour.duration),
-            filteredTour.map((tour) => tour.level))
-        // filteredTour.map((tour) => tour.age))
-        // filteredTour.map((tour) => tour.description))
+        let f = [...filteredTour];
+        return ldsh.union(f.map((tour) => tour.name),
+            f.map((tour) => tour.address),
+            f.map((tour) => tour.city),
+            f.map((tour) => tour.guide),
+            // f.map((tour) => tour.phoneGuide),
+            f.map((tour) => tour.placeOfDeparture),
+            f.map((tour) => tour.duration),
+            f.map((tour) => tour.level))
+
+        // f.map((tour) => tour.age))
+        // f.map((tour) => tour.description))
+    }
+
+    const t = (newValue: any) => {
+        let f = [...filteredTour]
+        const modifiedTour = f.filter(h => {
+            return h.name.includes(newValue) || h.address.includes(newValue)
+                || h.city.includes(newValue)
+                || h.guide.includes(newValue)
+                //|| h.phoneGuide.includes(newValue) 
+                || h.placeOfDeparture.includes(newValue)
+                || h.duration.includes(newValue) || h.level.includes(newValue);
+            // || h.age.includes(newValue);// || h.duscription.includes(newValue);
+        });
+        setFilteredTour(modifiedTour);
     }
 
     return <div>
@@ -61,35 +76,17 @@ export default function Tour() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredTour(tour);
-                else {
-                    const modifiedTour = filteredTour.filter(h => {
-                        return h.name.includes(newValue) || h.address.includes(newValue)
-                            || h.city.includes(newValue)
-                            || h.guide.includes(newValue)
-                            //|| h.phoneGuide.includes(newValue) 
-                            || h.placeOfDeparture.includes(newValue)
-                            || h.duration.includes(newValue) || h.level.includes(newValue);
-                        // || h.age.includes(newValue);// || h.duscription.includes(newValue);
-                    });
-                    setFilteredTour(modifiedTour);
-                }
+                else
+                    t(newValue);
+
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {
                     setFilteredTour(tour);
                 }
-                else {
-                    const modifiedTour = filteredTour.filter(h => {
-                        return h.name.includes(newValue) || h.address.includes(newValue)
-                            || h.city.includes(newValue)
-                            || h.guide.includes(newValue)
-                            //|| h.phoneGuide.includes(newValue) 
-                            || h.placeOfDeparture.includes(newValue)
-                            || h.duration.includes(newValue) || h.level.includes(newValue);
-                        // || h.age.includes(newValue);// || h.duscription.includes(newValue);
-                    });
-                    setFilteredTour(modifiedTour);
-                }
+                else
+                    t(newValue);
+
             }}
 
             renderInput={(params) => (

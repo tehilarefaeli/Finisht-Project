@@ -7,7 +7,7 @@ export interface TourInterface {
     placeOfDeparture: string;
     duration: string;
     trak: string;
-    age: number;
+    age: string;
     duscription: string;
 
 }

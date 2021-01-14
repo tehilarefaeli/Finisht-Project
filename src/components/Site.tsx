@@ -40,6 +40,15 @@ export default function Site() {
             filteredSite.map((site) => site.typeOfActivity))
         // filteredSite.map((site) => site.age))
     }
+    const s = (newValue: any) => {
+        const modifiedSite = filteredSite.filter(h => {
+            return h.address.includes(newValue) || h.phone.includes(newValue)
+                || h.city.includes(newValue) || h.name.includes(newValue)
+                || h.typeOfActivity.includes(newValue);
+            //  || h.age.includes(newValue);
+        });
+        setFilteredSite(modifiedSite);
+    }
 
 
     return <div>
@@ -53,29 +62,16 @@ export default function Site() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredSite(site);
-                else {
-                    const modifiedSite = filteredSite.filter(h => {
-                        return h.address.includes(newValue) || h.phone.includes(newValue)
-                            || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.typeOfActivity.includes(newValue);
-                        // || h.age.includes(newValue);
-                    });
-                    setFilteredSite(modifiedSite);
-                }
+                else
+                    s(newValue);
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {
                     setFilteredSite(site);
                 }
-                else {
-                    const modifiedSite = filteredSite.filter(h => {
-                        return h.address.includes(newValue) || h.phone.includes(newValue)
-                            || h.city.includes(newValue) || h.name.includes(newValue)
-                            || h.typeOfActivity.includes(newValue);
-                        //  || h.age.includes(newValue);
-                    });
-                    setFilteredSite(modifiedSite);
-                }
+                else
+                    s(newValue);
+
             }}
             renderInput={(params) => (
                 <TextField

@@ -52,6 +52,13 @@ export default function Hotel() {
             filteredHotels.map((hotel) => hotel.city),
             filteredHotels.map((hotel) => hotel.manager))
     }
+    const h =(newValue:any)=>{
+        const modifiedHotels = filteredHotels.filter(h => {
+            return h.name.includes(newValue) || h.city.includes(newValue)
+                || h.address.includes(newValue) || h.manager.includes(newValue);
+        });
+        setFilteredHotels(modifiedHotels);
+    }
 
     return <div>
         <Autocomplete
@@ -64,26 +71,17 @@ export default function Hotel() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredHotels(hotel);
-                else {
-                    const modifiedHotels = filteredHotels.filter(h => {
-                        return h.name.includes(newValue) || h.city.includes(newValue)
-                            || h.address.includes(newValue) || h.manager.includes(newValue);
-                    });
-                    setFilteredHotels(modifiedHotels);
-                }
+                else 
+                    h(newValue);
+                    
+                
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {
                     setFilteredHotels(hotel);
                 }
-                else {
-                    const modifiedHotels = filteredHotels.filter(h => {
-
-                        return h.name.includes(newValue) || h.city.includes(newValue)
-                            || h.address.includes(newValue) || h.manager.includes(newValue);
-                    });
-                    setFilteredHotels(modifiedHotels);
-                }
+                else
+                    h(newValue);
             }}
 
             renderInput={(params) => (
