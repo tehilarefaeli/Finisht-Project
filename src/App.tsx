@@ -17,6 +17,8 @@ import FormDialog from './components/PersonalArea';
 import Header from './components/Header‏'
 import MyAccount from './components/MyAccount';
 import Home from './components/Home';
+import Zipcode from './components/Zipcode';
+
 
 
 
@@ -43,6 +45,8 @@ export default function App() {
         <Route path="/myAccount" component={MyAccount} />
         <Route path="/t" component={FormDialogPassword} />
         <Route path="/w" component={FormDialog} />
+        <Route path="/zz" component={Zipcode} />
+
 
 
       </Switch>

@@ -23,6 +23,12 @@
   grid-row-gap: 20px;
 }
 
+#ma{ 
+
+margin-top: 500px;
+/* margin-left: 100px; */
+}
+
 /* תיבת טקסט חיפוש*/
 .MuiAutocomplete-root { grid-area: 1 / 2 / 4 / 5; }
 #a1 { grid-area: 2 / 2 / 3 / 3; }
@@ -63,4 +69,6 @@
 .Link{
     cursor: pointer;
 }
+ 
+
    

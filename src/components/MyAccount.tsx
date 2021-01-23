@@ -28,8 +28,11 @@ export default function MyAccount() {
     };
 
     return (
-        <Paper square className={classes.root}>
+        <Paper square
+        // className={classes.root}
+        >
             <Tabs
+                id="ma"
                 value={value}
                 onChange={handleChange}
                 variant="fullWidth"

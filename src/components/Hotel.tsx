@@ -30,7 +30,7 @@ export default function Hotel() {
 
     const editRow = (row: HotelInterface) => {
         console.log("rows :", row)
-        BaseRequestPut(`services/editHotel/${row.id}`, { ...row }).then(res => {
+        BaseRequestPut(`hotels/editHotel/${row.id}`, { ...row }).then(res => {
             console.log(res)
         })
     }
@@ -43,9 +43,6 @@ export default function Hotel() {
         { id: 'stars', label: 'Stars', },
 
     ];
-
-
-
     const getOptions = () => {
         return ldsh.union(filteredHotels.map((hotel) => hotel.name),
             filteredHotels.map((hotel) => hotel.address),
