@@ -29,7 +29,6 @@ export default function App() {
 
     <div className="App">
       <Header />
-
       <Switch>
         <Route path="/home" component={Home} />
         <Route path="/signIn" component={SignIn} />
@@ -46,9 +45,6 @@ export default function App() {
         <Route path="/t" component={FormDialogPassword} />
         <Route path="/w" component={FormDialog} />
         <Route path="/zz" component={Zipcode} />
-
-
-
       </Switch>
 
     </div>
