@@ -17,15 +17,15 @@ export default function User() {
 
 
 
-    //useEffect(() => {
-    //     // console.log("params: ", serviceId, country)
-    //     // BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
-    //     //     console.log("useEffect", res);
-    //         setuser(res);
-    //         setfilteredUsers(res);
-    //     }
-    //     ).catch(e => console.log(e))
-    // }, []);
+    useEffect(() => {
+        //console.log("params: )
+        BaseRequest(`users/getUsers`).then(res => {
+            console.log("useEffect", res);
+            setUser(res);
+            setFilteredUsers(res);
+        }
+        ).catch(e => console.log(e))
+    }, []);
 
     const headCells: HeadCell[] = [
         { id: 'userName', label: ' User Name', },
@@ -92,4 +92,4 @@ export default function User() {
 
     </div>
 
- }
+}

@@ -41,10 +41,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const history = useHistory();
     // const [formData, setFormData] = useState<any>({
-
     //     email: '',
     //     password: '',
-
     // })
     const [email, setEmail] = useState<string>()
     const [password, setPassword] = useState<string>()
@@ -54,22 +52,19 @@ export default function SignIn() {
         history.push(`/signup`)
     }
     // const toMyAccount = (user:{}) => {
-
     //     //  localStorage.setItem()
     //  //   localStorage.getItem()
     //     history.push(`/myAccount`);
     // }
-
     const toMyAccount = () => {
         BaseRequest(`users/logIn/${email}/${password}`).then((res) => {
             console.log(res);
+
             localStorage.setItem('email', res.email);
             localStorage.setItem('password', res.password);
             localStorage.setItem('permission', res.permission);
             if (localStorage.getItem('email') != 'undefined')
                 history.push("/myAccount");
-
-
         }).catch((e) => {
             console.log(e)
         })
@@ -79,18 +74,15 @@ export default function SignIn() {
             setTimeout(() => setSubmitted(false), 5000);
 
     }, [submitted]);
-
     // const handleChange = (event: any) => {
     //     let fd = { ...formData };
     //     fd[event.target.name] = event.target.value;
     //     setFormData(fd);
     // }
-
     const handleSubmit = () => {
         setSubmitted(true);
         // toMyAccount{formData} //!!!!
     }
-
     const classes = useStyles();
     return (
         <Container component="main" maxWidth="xs">
@@ -102,8 +94,6 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign In
                 </Typography>
-
-
                 <ValidatorForm className={classes.form} noValidate
                     ref={formRef}
                     onSubmit={handleSubmit}
@@ -124,7 +114,6 @@ export default function SignIn() {
                         errorMessages={['this field is required', 'email is not valid']}
                     />
                     <br />
-
                     <TextValidator
                         variant="outlined"
                         required
@@ -140,7 +129,6 @@ export default function SignIn() {
                         errorMessages={['this field is required']}
                         value={password}
                     />
-
                     <br />
                     <Button
                         fullWidth
@@ -155,8 +143,6 @@ export default function SignIn() {
                             || (!submitted && 'Submit')
                         }
                     </Button>
-
-
                 </ValidatorForm>
                 <br />
                 <Grid container>
@@ -172,15 +158,10 @@ export default function SignIn() {
                         >
                             {"Don't have an account? Sign Up"}
                         </Link>
-
-
-
                     </Grid>
                 </Grid>
-
             </div>
             <Box mt={8}>
-
             </Box>
         </Container>
     );

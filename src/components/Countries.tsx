@@ -1,5 +1,7 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from 'react';
+import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Country } from '../interfaces/Country.interface';
@@ -10,9 +12,12 @@ import United_Kingdom from '../assets/United_Kingdom.png';
 import RecipeReviewCard from './Cards';
 import { useHistory } from 'react-router-dom';
 import BaseRequest from '../helpers/BaseRequest';
+import { addCountry, removeCountry } from '../state/ActionCreator';
+import countryReducer from '../state/countryReducer';
 
 export default function Countries() {
     let i = 0;
+    const dispatch: Dispatch<any> = useDispatch();
     const [countries, setCountries] = useState<Country[]>([
 
         { name: 'Israel', flag: Israel, isFavorite: false, id: 'a' + (i = i + 1).toString() },
@@ -39,7 +44,14 @@ export default function Countries() {
             if (a.id === id)
                 a.isFavorite = !a.isFavorite
         })
-        setCountries(arr)
+        setCountries(arr);
+        const country = arr.find(c => c.id == id);
+        if (country?.isFavorite == true) {
+            dispatch(removeCountry(country));
+        } else {
+            if (country)
+                dispatch(addCountry(country));
+        }
     }
     useEffect(() => {
         BaseRequest('countries/getCountry').then(res => {

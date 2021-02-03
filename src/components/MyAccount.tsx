@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 export default function MyAccount() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const permission = localStorage.getItem('permission');
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -31,21 +32,42 @@ export default function MyAccount() {
         <Paper square
         // className={classes.root}
         >
-            <Tabs
-                id="ma"
-                value={value}
-                onChange={handleChange}
-                variant="fullWidth"
-                indicatorColor="secondary"
-                textColor="secondary"
-                aria-label="icon label tabs example"
-            >
+
+            {permission !== "1" ?
+
+                <Tabs
+                    id="ma"
+                    value={value}
+                    onChange={handleChange}
+                    variant="fullWidth"
+                    indicatorColor="secondary"
+                    textColor="secondary"
+                    aria-label="icon label tabs example"
+                >
+
                 <Tab icon={<PersonPinIcon />} label="PROFILE" />
                 <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
                 <Tab icon={<PublicIcon />} label="MY COUNTRIES" />
                 <Tab icon={<DirectionsWalkIcon />} label="MY TOURS" />
                 <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
-            </Tabs>
+
+                </Tabs>
+                : <Tabs
+            id="ma"
+            value={value}
+            onChange={handleChange}
+            variant="fullWidth"
+            indicatorColor="secondary"
+            textColor="secondary"
+            aria-label="icon label tabs example"
+        >
+
+        <Tab icon={<PersonPinIcon />} label="PROFILE" />
+        <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
+        <Tab icon={<PublicIcon />} label="AAA" />
+        <Tab icon={<DirectionsWalkIcon />} label="DDD TOURS" />
+        <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
+        </Tabs>}
         </Paper>
     );
 }

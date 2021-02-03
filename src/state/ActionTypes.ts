@@ -1,0 +1,2 @@
+export const ADD_MY_COUNTRIE = "ADD_MY_COUNTRIE";
+export const REMOVE_MY_COUNTRIE = "REMOVE_MY_COUNTRIE";
