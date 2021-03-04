@@ -22,6 +22,7 @@ export default function Hotel() {
         BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
             console.log("useEffect", res);
             setHotel(res);
+            console.log("hotel", hotel);
             setFilteredHotels(res);
         }
         ).catch(e => console.log(e))
@@ -44,12 +45,13 @@ export default function Hotel() {
 
     ];
     const getOptions = () => {
+        console.log("hotel2.", hotel)
         return ldsh.union(filteredHotels.map((hotel) => hotel.name),
             filteredHotels.map((hotel) => hotel.address),
             filteredHotels.map((hotel) => hotel.city),
             filteredHotels.map((hotel) => hotel.manager))
     }
-    const h =(newValue:any)=>{
+    const h = (newValue: any) => {
         const modifiedHotels = filteredHotels.filter(h => {
             return h.name.includes(newValue) || h.city.includes(newValue)
                 || h.address.includes(newValue) || h.manager.includes(newValue);
@@ -68,10 +70,10 @@ export default function Hotel() {
                 const newValue = e.target.value;
                 if (newValue == "")
                     setFilteredHotels(hotel);
-                else 
+                else
                     h(newValue);
-                    
-                
+
+
             }}
             onChange={(e: any, newValue: any) => {
                 if (newValue == "") {

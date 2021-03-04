@@ -22,11 +22,20 @@ import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme: Theme) =>
+
     createStyles({
+
+
+        body: {
+            position: 'fixed',
+            top: '0%',
+            zIndex: 1000
+        },
         grow: {
             flexGrow: 1,
         },
         list: {
+
             width: 250,
 
         },
@@ -125,7 +134,7 @@ export default function Header() {
         history.push(`/signup`)
     }
     const toMYAccount = (e: any) => {
-        history.push(`/myAcccount`)
+        history.push(`/myAccount`)
     }
 
     const toHome = (e: any) => {
@@ -162,13 +171,14 @@ export default function Header() {
                     { text: 'Home', link: '/home' },
                     { text: 'countries', link: '/country' },
                     { text: 'Tours', link: '/' },
-                    { text: 'Halachic Times', link: '/' },
+                    { text: 'Halachic Times', link: '/time' },
                     { text: 'Weather', link: '/' },
+                    { text: 'Bet Chabad', link: '/' },
                     { text: 'About Us', link: '/' },
                     { text: 'Our Team', link: '/' },
                     { text: 'Terms', link: '/' },
                     { text: 'Help', link: '/' },
-                    { text: 'Contact', link: '/' },
+                    { text: 'Contact', link: '/contact' },
                 ].map((item, index) => (
                     <ListItem button key={item.text} onClick={() => navigate(item.link)}>
                         {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
@@ -298,7 +308,7 @@ export default function Header() {
                                             <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                                 <MenuItem onClick={toSingUp}>Sign In\Sign Up</MenuItem>
                                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                                {/* <MenuItem onClick={toMYAccount}>My Account</MenuItem> */}
+                                                <MenuItem onClick={toMYAccount}>My Account</MenuItem>
                                                 <MenuItem onClick={handleClose}>My Countries</MenuItem>
                                                 <MenuItem onClick={handleClose}>My Tours</MenuItem>
                                                 <MenuItem onClick={handleClose}>Last Viewed</MenuItem>

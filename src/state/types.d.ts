@@ -10,4 +10,8 @@ type CountryAction = {
     country: Country
 }
 
+type CountryGetAction = {
+    type: string
+}
+
 type DispatchType = (args: CountryAction) => CountryAction

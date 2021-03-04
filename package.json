@@ -20,6 +20,7 @@
     "lodash": "^4.17.20",
     "lodash-ts": "^1.2.7",
     "material-ui-image": "^3.3.0",
+    "node-sass": "^5.0.0",
     "react": "^17.0.0",
     "react-card": "^1.0.4",
     "react-dom": "^17.0.0",

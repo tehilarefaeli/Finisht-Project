@@ -1,6 +1,6 @@
 import { Country } from './../interfaces/Country.interface';
 import * as actionTypes from "./ActionTypes";
-import { CountryAction, DispatchType } from './types';
+import { CountryAction, CountryGetAction, DispatchType } from './types';
 
 export function addCountry(country: Country) {
     const action: CountryAction = {

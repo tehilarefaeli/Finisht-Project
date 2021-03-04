@@ -22,7 +22,7 @@ const countryReducer = (
             }
             return {
                 ...state,
-                  countries: state.countries.concat(newCountry),
+                countries: state.countries.concat(newCountry),
             }
         case REMOVE_MY_COUNTRIE:
             const updatedCountries: Country[] = state.countries.filter(
@@ -32,6 +32,7 @@ const countryReducer = (
                 ...state,
                 countries: updatedCountries,
             }
+
     }
     return state;
 }

@@ -23,6 +23,11 @@ import Home from './components/Home';
 import Zipcode from './components/Zipcode';
 import { CountryState, CountryAction, DispatchType } from './state/types';
 import countryReducer from './state/countryReducer';
+import Contact from './components/Contact';
+import Times from './components/Times';
+import HomePage from './components/Home';
+import Footer from './components/Footer';
+
 
 
 
@@ -36,8 +41,9 @@ export default function App() {
     <Provider store={store}>
       <div className="App">
         <Header />
+        {/* <HomePage /> */}
         <Switch>
-          <Route path="/home" component={Home} />
+          <Route path="/home" component={HomePage} />
           <Route path="/signIn" component={SignIn} />
           <Route path="/signUp" component={SignUp} />
           <Route path="/recipeReviewCard" component={RecipeReviewCard} />
@@ -52,8 +58,12 @@ export default function App() {
           <Route path="/t" component={FormDialogPassword} />
           <Route path="/w" component={FormDialog} />
           <Route path="/zz" component={Zipcode} />
-        </Switch>
+          <Route path="/contact" component={Contact} />
+          <Route path="/time" component={Times} />
 
+
+        </Switch>
+        <Footer />
       </div>
     </Provider>
   );

@@ -47,10 +47,10 @@ export default function Countries() {
         setCountries(arr);
         const country = arr.find(c => c.id == id);
         if (country?.isFavorite == true) {
-            dispatch(removeCountry(country));
+            dispatch(addCountry(country));
         } else {
             if (country)
-                dispatch(addCountry(country));
+                dispatch(removeCountry(country));
         }
     }
     useEffect(() => {

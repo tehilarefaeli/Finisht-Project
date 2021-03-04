@@ -10,6 +10,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import PublicIcon from '@material-ui/icons/Public';
 import SlideshowIcon from '@material-ui/icons/Slideshow';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Mycountry from './Mycountries';
 
 const useStyles = makeStyles({
     root: {
@@ -29,46 +30,50 @@ export default function MyAccount() {
     };
 
     return (
-        <Paper square
-        // className={classes.root}
-        >
+        <React.Fragment>
+            <Mycountry />
+            <Paper square
+            // className={classes.root}
+            >
 
-            {permission !== "1" ?
 
-                <Tabs
-                    id="ma"
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    indicatorColor="secondary"
-                    textColor="secondary"
-                    aria-label="icon label tabs example"
-                >
+                {permission !== "1" ?
 
-                <Tab icon={<PersonPinIcon />} label="PROFILE" />
-                <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
-                <Tab icon={<PublicIcon />} label="MY COUNTRIES" />
-                <Tab icon={<DirectionsWalkIcon />} label="MY TOURS" />
-                <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
+                    <Tabs
+                        id="ma"
+                        value={value}
+                        onChange={handleChange}
+                        variant="fullWidth"
+                        indicatorColor="secondary"
+                        textColor="secondary"
+                        aria-label="icon label tabs example"
+                    >
 
-                </Tabs>
-                : <Tabs
-            id="ma"
-            value={value}
-            onChange={handleChange}
-            variant="fullWidth"
-            indicatorColor="secondary"
-            textColor="secondary"
-            aria-label="icon label tabs example"
-        >
+                        <Tab icon={<PersonPinIcon />} label="PROFILE" />
+                        <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
+                        <Tab icon={<PublicIcon />} label="MY COUNTRIES" />
+                        <Tab icon={<DirectionsWalkIcon />} label="MY TOURS" />
+                        <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
 
-        <Tab icon={<PersonPinIcon />} label="PROFILE" />
-        <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
-        <Tab icon={<PublicIcon />} label="AAA" />
-        <Tab icon={<DirectionsWalkIcon />} label="DDD TOURS" />
-        <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
-        </Tabs>}
-        </Paper>
+                    </Tabs>
+                    : <Tabs
+                        id="ma"
+                        value={value}
+                        onChange={handleChange}
+                        variant="fullWidth"
+                        indicatorColor="secondary"
+                        textColor="secondary"
+                        aria-label="icon label tabs example"
+                    >
+
+                        <Tab icon={<PersonPinIcon />} label="PROFILE" />
+                        <Tab icon={<VpnKeyIcon />} label="CHANGE PASS" />
+                        <Tab icon={<PublicIcon />} label="AAA" />
+                        <Tab icon={<DirectionsWalkIcon />} label="DDD TOURS" />
+                        <Tab icon={<SlideshowIcon />} label="LAST VIEWED" />
+                    </Tabs>}
+            </Paper>
+        </React.Fragment>
     );
 }
 
