@@ -7,12 +7,16 @@ import BaseRequest from '../helpers/BaseRequest';
 import { TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import ldsh from 'lodash';
+import BaseRequestPut from '../helpers/put';
+import AddSynagogue from './AddSynagogue';
 export default function Synagogue() {
 
     var rows: SynagogueInterface[] = [];
-    const { serviceId, country } = useParams();
+    const { serviceId, country, id } = useParams();
     const [synagogue, setSynagogue] = useState<any[]>([])
     const [filteredSynagogue, setFilteredSynagogue] = useState<any[]>([])
+    const permission = localStorage.getItem('permission');
+
     useEffect(() => {
         console.log("params: ", serviceId, country)
         BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
@@ -20,21 +24,25 @@ export default function Synagogue() {
             setSynagogue(res);
             setFilteredSynagogue(res);
 
-
-
         }
         ).catch(e => console.log(e))
     }, []);
 
+    const editRow = (row: SynagogueInterface) => {
+        console.log("rows :", row)
+        BaseRequestPut(`synagogues/editSynagogue/${row.id}`, { ...row }).then(res => {
+            console.log(res)
+        })
+    }
 
     const headCells: HeadCell[] = [
+        { id: 'name', label: ' Name', },
+        { id: 'city', label: 'City', },
         { id: 'address', label: 'Address', },
         { id: 'phone', label: 'Phone', },
-        { id: 'city', label: 'City', },
-        { id: 'name', label: ' Name', },
         { id: 'rabbi', label: 'Rabbi', },
         { id: 'nusach', label: 'Nusach', },
-        { id: 'community', label: 'Community', },
+        { id: 'community', label: 'Community', }
 
 
     ];
@@ -95,6 +103,15 @@ export default function Synagogue() {
                 />
             )}
         />
-        {<CustomTable headCells={headCells} rows={filteredSynagogue} />}
+        {<CustomTable headCells={headCells} rows={filteredSynagogue} editRow={(data: any) => editRow(data)} />}
+
+
+
+        {
+            permission === '1' && <AddSynagogue></AddSynagogue>
+        }
+
     </div>
+
+
 }

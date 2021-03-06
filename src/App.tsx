@@ -27,6 +27,10 @@ import Contact from './components/Contact';
 import Times from './components/Times';
 import HomePage from './components/Home';
 import Footer from './components/Footer';
+import CountryInRadiuos from './components/TuorInRadious';
+import AddHotel from './components/AddHotel';
+import Terms from './components/Terms';
+import Privacy from './components/Privacy';
 
 
 
@@ -56,12 +60,15 @@ export default function App() {
           <Route path="/user" component={User} />
           <Route path="/myAccount" component={MyAccount} />
           <Route path="/t" component={FormDialogPassword} />
-          <Route path="/w" component={FormDialog} />
+          <Route path="/w" component={AddHotel} />
           <Route path="/zz" component={Zipcode} />
           <Route path="/contact" component={Contact} />
           <Route path="/time" component={Times} />
+          <Route path="/qqqq" component={CountryInRadiuos} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
 
-
+          {/*  */}
         </Switch>
         <Footer />
       </div>

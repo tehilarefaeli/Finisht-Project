@@ -1,4 +1,5 @@
 export interface SynagogueInterface {
+   id :number;
     name: string;
     phone: number;
     address: string;

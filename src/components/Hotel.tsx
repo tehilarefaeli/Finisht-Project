@@ -5,9 +5,11 @@ import CustomTable from './Table';
 import BaseRequest from '../helpers/BaseRequest';
 import { useParams } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { TextField } from '@material-ui/core';
+import { TextField, createGenerateClassName } from '@material-ui/core';
 import ldsh from 'lodash';
 import BaseRequestPut from '../helpers/put';
+
+import AddHotel from './AddHotel';
 //import axios from 'axios';
 //import CustomTable from './Table';
 
@@ -17,6 +19,7 @@ export default function Hotel() {
     const { serviceId, country, id } = useParams();
     const [hotel, setHotel] = useState<any[]>([])
     const [filteredHotels, setFilteredHotels] = useState<any[]>([])
+    const permission = localStorage.getItem('permission');
     useEffect(() => {
         console.log("params: ", serviceId, country)
         BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
@@ -96,6 +99,12 @@ export default function Hotel() {
 
         {/* permission={1} managerCells={managerCells} */}
         {<CustomTable headCells={headCells} rows={filteredHotels} editRow={(data: any) => editRow(data)} />}
+
+        {   
+            permission === '1' && <AddHotel></AddHotel>
+        }
+
+
 
     </div>
 }

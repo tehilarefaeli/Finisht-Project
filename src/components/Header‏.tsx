@@ -26,11 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
 
 
-        body: {
-            position: 'fixed',
-            top: '0%',
-            zIndex: 1000
-        },
+        // body: {
+        //     position: 'fixed',
+        //     top: '0%',
+        //     zIndex: 1000,
+        //     backgroundColor: '#46867b‏'
+
+
+        // },
         grow: {
             flexGrow: 1,
         },
@@ -176,7 +179,8 @@ export default function Header() {
                     { text: 'Bet Chabad', link: '/' },
                     { text: 'About Us', link: '/' },
                     { text: 'Our Team', link: '/' },
-                    { text: 'Terms', link: '/' },
+                    { text: 'Terms', link: '/terms' },
+                    { text: 'Privacy', link: 'privacy' },
                     { text: 'Help', link: '/' },
                     { text: 'Contact', link: '/contact' },
                 ].map((item, index) => (
@@ -217,7 +221,7 @@ export default function Header() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static" style={{ backgroundColor: lightBlue[300] }}>
+            <AppBar position="static" style={{ backgroundColor: '#5dc6b3' }}>
                 <Toolbar>
                     <React.Fragment key={'left'}>
                         <Button
@@ -243,7 +247,7 @@ export default function Header() {
                         <MenuIcon />
                     </IconButton> */}
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Our Amazing Project
+                        Datiuly
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>

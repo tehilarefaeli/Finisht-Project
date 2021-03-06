@@ -9,12 +9,15 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
 import BaseRequest from '../helpers/BaseRequest';
 import ldsh from 'lodash';
+import BaseRequestPut from '../helpers/put';
+import AddRestaurant from './AddRestaurant';
 
 
 export default function Restaurant() {
     var rows: RestaurantInterface[] = [];
-    const { serviceId, country } = useParams();
+    const { serviceId, country, id } = useParams();
     const [restaurant, setRestaurant] = useState<any[]>([])
+    const permission = localStorage.getItem('permission');
     const [filteredRestaurant, setFilteredRestaurant] = useState<any[]>([])
     useEffect(() => {
         console.log("params: ", serviceId, country)
@@ -26,6 +29,13 @@ export default function Restaurant() {
         }
         ).catch(e => console.log(e))
     }, []);
+
+    const editRow = (row: RestaurantInterface) => {
+        console.log("rows :", row)
+        BaseRequestPut(`restaurants/editRestauran/${row.id}`, { ...row }).then(res => {
+            console.log(res)
+        })
+    }
 
     const headCells: HeadCell[] = [
         { id: 'name', label: ' Name', },
@@ -87,9 +97,11 @@ export default function Restaurant() {
 
         />
 
-        <CustomTable headCells={headCells} rows={filteredRestaurant} />
+        <CustomTable headCells={headCells} rows={filteredRestaurant} editRow={(data: any) => editRow(data)} />
 
 
-
+        {   
+            permission === '1' && <AddRestaurant></AddRestaurant>
+        }
     </div>
 }

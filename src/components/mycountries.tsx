@@ -62,53 +62,54 @@ export default function Mycountry() {
 
     return (
         <div>
-
-
-            {countries.map(c =>
-                <div>
+            {/* <div>
                     <img src={c.flag} />
                     <div>{c.isFavorite}</div>
                     <div>{c.name}</div>
-                </div>
+                </div> */}
 
-            )}
-            <Card className={classes.root}>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
+            {countries.map(c =>
 
 
-                        </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
-                />
-                <CardMedia
-                    className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Paella dish"
+
+                <Card className={classes.root}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
 
 
-                />
-                {/* <CardContent>
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        }
+                        title={<div>{c.name}</div>}
+                    //subheader="September 14, 2016"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image={c.flag}
+                        title="Paella dish"
+
+
+                    />
+
+                    {/* <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     This impressive paella is a perfect party dish and a fun meal to cook together with your
                     guests. Add 1 cup of frozen peas along with the mussels, if you like.
         </Typography>
             </CardContent> */}
-                {/* <CardActions disableSpacing> */}
-                {/* <IconButton aria-label="add to favorites">
+                    {/* <CardActions disableSpacing> */}
+                    {/* <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                 </IconButton> */}
-                {/* <IconButton aria-label="share">
+                    {/* <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton> */}
-                {/* <IconButton
+                    {/* <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
                     })}
@@ -118,17 +119,17 @@ export default function Mycountry() {
                 >
                     <ExpandMoreIcon />
                 </IconButton> */}
-                {/* </CardActions> */}
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    {<CardContent>
+                    {/* </CardActions> */}
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        {<CardContent>
 
 
 
-                    </CardContent>}
-                </Collapse>
-            </Card>
+                        </CardContent>}
+                    </Collapse>
+                </Card>
 
-
+            )}
         </div>
 
 
