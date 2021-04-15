@@ -31,6 +31,7 @@ import CountryInRadiuos from './components/TuorInRadious';
 import AddHotel from './components/AddHotel';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
+import Services from './components/Services';
 
 
 
@@ -45,7 +46,7 @@ export default function App() {
     <Provider store={store}>
       <div className="App">
         <Header />
-        {/* <HomePage /> */}
+
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route path="/signIn" component={SignIn} />
@@ -67,6 +68,8 @@ export default function App() {
           <Route path="/qqqq" component={CountryInRadiuos} />
           <Route path="/terms" component={Terms} />
           <Route path="/privacy" component={Privacy} />
+          <Route path="/s" component={Services} />
+          <Route path="/" component={HomePage} />
 
           {/*  */}
         </Switch>

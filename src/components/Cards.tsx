@@ -70,7 +70,7 @@ export default function RecipeReviewCard(props: CardProps) {
             <CardMedia
                 className={classes.media}
                 image={props.country.flag}
-
+                onClick={()=>props.handleClick(props.country)}
             />
 
             <CardContent>

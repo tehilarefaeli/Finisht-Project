@@ -96,6 +96,7 @@ export default function Restaurant() {
             )}
 
         />
+        <h2>RESTAURANTS</h2>
 
         <CustomTable headCells={headCells} rows={filteredRestaurant} editRow={(data: any) => editRow(data)} />
 

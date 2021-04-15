@@ -97,10 +97,12 @@ export default function Hotel() {
             )}
         />
 
+        <h2>HOTELS</h2>
+
         {/* permission={1} managerCells={managerCells} */}
         {<CustomTable headCells={headCells} rows={filteredHotels} editRow={(data: any) => editRow(data)} />}
 
-        {   
+        {
             permission === '1' && <AddHotel></AddHotel>
         }
 

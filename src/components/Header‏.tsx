@@ -128,9 +128,18 @@ export default function Header() {
     const [open, setOpen] = React.useState(false);
     const [menuOpen, setMenuOpen] = useState(false)
     const anchorRef = React.useRef<HTMLButtonElement>(null);
+    const permission = localStorage.getItem('permission');
 
     const navigate = (link: string) => {
         history.push(link);
+    }
+
+    const toLogOut = (e: any) => {
+
+        localStorage.setItem('email', "null");
+        localStorage.setItem('password', "null");
+        localStorage.setItem('permission', "null");
+        history.push(`/`)
     }
 
     const toSingUp = (e: any) => {
@@ -310,12 +319,13 @@ export default function Header() {
                                     <Paper>
                                         <ClickAwayListener onClickAway={handleClose}>
                                             <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                                <MenuItem onClick={toSingUp}>Sign In\Sign Up</MenuItem>
-                                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                                <MenuItem onClick={toMYAccount}>My Account</MenuItem>
-                                                <MenuItem onClick={handleClose}>My Countries</MenuItem>
-                                                <MenuItem onClick={handleClose}>My Tours</MenuItem>
-                                                <MenuItem onClick={handleClose}>Last Viewed</MenuItem>
+                                                {permission == "null" && <MenuItem onClick={toSingUp}>Sign In\Sign Up</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={toLogOut}>Log Out</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={handleClose}>Profile</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={toMYAccount}>My Account</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={handleClose}>My Countries</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={handleClose}>My Tours</MenuItem>}
+                                                {permission != "null" && <MenuItem onClick={handleClose}>Last Viewed</MenuItem>}
                                             </MenuList>
                                         </ClickAwayListener>
                                     </Paper>

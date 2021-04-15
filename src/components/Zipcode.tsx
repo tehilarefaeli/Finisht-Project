@@ -4,6 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField } from '@material-ui/core';
 import BaseJsonRequest from '../helpers/BaseJsonRequest';
 import Countries from '../assets/json/countries.json';
+import BaseRequest from '../helpers/BaseRequest';
 export default function Zipcode() {
 
   const [countriesList, setCountriesList] = useState<any[]>([])
@@ -11,13 +12,14 @@ export default function Zipcode() {
   const [serviceList, setServiceList] = useState<any[]>([])
 
   const [countrySelected, setCountrySelected] = useState<string>('')
+  const [zipSelected, setZipSelected] = useState<any>([]);
+  const [enterRadiuos, setEnterRadiuos] = useState<any>([]);
 
   const [getZipData, setGetZipData] = useState<any>({
     country: '',
     city: '',
   })
   const [zipList, setZipList] = useState<any[]>([]);
-  const [zipSelected, setZipSelected] = useState<any>([]);
 
   // const options: any = {
   //   method: 'GET',
@@ -57,23 +59,64 @@ export default function Zipcode() {
     setCountriesList(Countries);
   });
 
-  const selectCountry = (e: any, newValue: any) => {
-    console.log(newValue);
-    setCountrySelected(newValue?.country)
 
+
+  const selectCountry = (e: any, newValue: any) => {
+    console.log("changed");
+    console.log(newValue);
+    setCountrySelected(newValue?.alpha2);
+    console.log(newValue?.alpha2);
+    // getProvincesByCountry(newValue?.alpha2);
     //העתקת רשימת הערים המתאימה לרשימת הערים
   }
 
-  const selectCity = (e: any, newValue: any) => {
-    console.log(newValue);
-    setCountrySelected(newValue?.country)
+  // const getProvincesByCountry = (country: string) => {
 
-    getZipsList();
+  //   BaseRequest(`zipcode/getCitiesByCountry/${country}`).then(res => {
+  //     console.log("useEffect", res);
+
+  //   }
+  //   ).catch(e => {
+  //     console.log(e)
+  //   }
+  //   )
+  // }
+
+  // const selectCity = (e: any, newValue: any) => {
+  //   console.log(newValue);
+  //   setCountrySelected(newValue?.country)
+
+  //  // getZipsList();
+  // }
+
+  const selectZip = (e: any) => {
+    const input = e.target;
+    setZipSelected(input.value);
+    console.log(input.value);
+
+  }
+  const enteringRadiuos = (e: any) => {
+    const input = e.target;
+    console.log(input.value);
+    setEnterRadiuos(input.value);
+  }
+  const findServicesInRadius = () => {
+    const radius = enterRadiuos;
+    const country = countrySelected;
+    const zipcode = zipSelected;
+
+    BaseRequest(`zipcode/getZipCodeInRadius/${zipcode}/${radius}/${country}`).then(res => {
+      console.log("useEffect", res);
+    }).catch(e => {
+      console.log(e)
+    })
+
   }
 
-  const getZipsList = () => {
-    //הפעלת בקשה משרת זיפים
-  }
+
+  // const getZipsList = () => {
+  //   //הפעלת בקשה משרת זיפים
+  // }
 
   const getServicesList = () => {
     //הפעלת בקשה מהשרת שלנו - שם תופעל בקשה לשרת זןפןם שיחזיר זיפים במרחק מסוים ויסנן שירותים
@@ -89,14 +132,20 @@ export default function Zipcode() {
       //options={top100Films}
       onChange={selectCountry}
       getOptionLabel={(option) => {
-        console.log(option);
         return option.name;
       }}
       style={{ width: 348 }}
       renderInput={(params) => <TextField {...params} label="Choose Country" variant="outlined" />}
     />
     {/* הוספת תיבת טקסט לעיר ורחוב */}
-    <button type="submit"></button>
+    <label>הכנס מיקוד</label>
+    <input onChange={selectZip} />
+    <br></br>
+    <label>הכנס רדיוס</label>
+    <input onChange={enteringRadiuos} />
+
+    <button type="submit" onClick={findServicesInRadius}>הצג תוצאות</button>
+
   </div>
 
 

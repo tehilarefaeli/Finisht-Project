@@ -18,7 +18,7 @@ export default function Synagogue() {
     const permission = localStorage.getItem('permission');
 
     useEffect(() => {
-        console.log("params: ", serviceId, country)
+        console.log("params:", serviceId, country)
         BaseRequest(`services/getServicesById/${serviceId}/${country}`).then(res => {
             console.log("useEffect", res);
             setSynagogue(res);
@@ -103,7 +103,10 @@ export default function Synagogue() {
                 />
             )}
         />
-        {<CustomTable headCells={headCells} rows={filteredSynagogue} editRow={(data: any) => editRow(data)} />}
+        <h2>SYNAGOGUES</h2>
+        {
+            <CustomTable headCells={headCells} rows={filteredSynagogue} editRow={(data: any) => editRow(data)} />
+        }
 
 
 

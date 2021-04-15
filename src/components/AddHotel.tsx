@@ -45,10 +45,7 @@ export default function AddHotel() {
     }
 
     const handleSubmit = () => {
-        //alert('bbbb');
         setSubmitted(true);
-        console.log("data sent to server////", formData);
-
         BaseRequestPost('hotels/addHotel', formData).then(res => {
             console.log("sign up response", res);
             if (res.success) {
@@ -64,8 +61,7 @@ export default function AddHotel() {
                     stars: formData.stars
                 }
                 setFormData(data);
-                console.log("dataaaaa", data);
-                //toMyAccount(data);
+
             }
             else {
 
